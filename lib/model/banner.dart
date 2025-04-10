@@ -6,7 +6,7 @@ class BannerModel {
   int? id;
   /// 图片地址
   String? picture;
-  /// 1.仅图片,2.课程,3.外链
+  /// 1.仅图片,2.内链,3.外链
   int? type;
   /// 内容
   String? content;
