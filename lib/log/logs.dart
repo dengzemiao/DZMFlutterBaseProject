@@ -20,28 +20,34 @@ class Logs {
   /// })
   
   /// 参数 Key，并不是只能传这些，额外字段可以随时添加不做限制，列出来固定只是方便统一管理，需要额外字段可以随意添加
-  /// 日志标题，会有默认标题
+  
+  /// ===>>> 常规参数
+
+  ///【非必填】日志标题，会有默认标题
   final String keyTitle = 'title';
-  /// 日志数据展示方式 1 ，根据情况任意选一种
+  ///【非必填】日志数据，存放日志数据
   final String keyData = 'data';
-  /// 日志数据展示方式 2 ，根据情况任意选一种
-  final String keyRes = 'res';
-  /// 日志数据展示方式 3 ，根据情况任意选一种
-  final String keyError = 'error';
-  /// 日志状态，true 成功 false 失败/错误，会有不同的展示颜色
+  ///【非必填】日志状态，true 成功 false 失败/错误，会有不同的展示颜色，默认 true
   final String keySuccess = 'success';
-  /// 日志触发时间
+
+  /// ===>>> 日志触发参数
+  
+  ///【非必填】日志触发时间，会自动获取当前时间
   final String keyDate = 'date';
-  /// 日志展开、收起状态
+  ///【非必填】日志展开、收起状态， false 收起，true 展开，默认取 isExpanded 字段值
   final String keyExpand = 'expand';
+  ///【非必填】日志索引，会自动递增，不能进行操作
+  final String keyIndex = 'index';
+
+  /// ===>>>【 需要用户可后续添加的其他常规参数 】 
+  
   /// 日志触发设备平台，默认不需要调整
   final String keyPlatform = 'platform';
   /// 日志触发用户ID
   final String keyUserId = 'userId';
-  /// 日志索引，会自动递增，默认不需要调整
-  final String keyIndex = 'index';
 
-
+  /// ===>>>【 日志对象属性 】
+  
   /// 日志开启状态
   bool _isEnable = false;
   /// 获取日志开启状态
@@ -73,16 +79,17 @@ class Logs {
   Future<bool> sync() async {
     // 获取日志开启状态
     _isEnable = await Storage().getBoolPro('LogsEnable', defaultValue: true);
+    // _isEnable = await Storage().getBoolPro('LogsEnable', defaultValue: false);
     // 返回
     return _isEnable;
   }
 
   /// 显示日志按钮
+  /// 在 initState 中实现需要加载完成后再添加，避免报错，示例：
+  /// WidgetsBinding.instance.addPostFrameCallback((_) {
+  ///   LogButton.show(context);
+  /// });
   void showButton(BuildContext context) {
-    // 在 initState 中实现需要加载完成后再添加，避免报错，示例：
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   LogButton.show(context);
-    // });
     // 添加日志按钮
     LogButton.show(context);
   }

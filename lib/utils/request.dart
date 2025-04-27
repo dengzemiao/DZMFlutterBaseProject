@@ -153,7 +153,7 @@ class HttpManager {
           logs.keyData: method == HttpMethod.postFormData ? parameters.toString() : data,
           'queryParameters': queryParameters,
           'headers': {...headers ?? {}, ..._dio.options.headers},
-          logs.keyRes: dioResponse.data
+          logs.keyData: dioResponse.data
         });
       }
     } on DioException catch (e) {
@@ -165,7 +165,7 @@ class HttpManager {
           logs.keyData: method == HttpMethod.postFormData ? parameters.toString() : data,
           'queryParameters': queryParameters,
           'headers': {...headers ?? {}, ..._dio.options.headers},
-          logs.keyError: e.toString()
+          logs.keyData: e.toString()
         });
       }
       // 隐藏加载
