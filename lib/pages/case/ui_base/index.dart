@@ -124,7 +124,7 @@ class UiBaseControllerState extends BaseStatefulControllerState {
                 ),
                 Container(
                   color: Colors.yellow,
-                  height: adaptHeight(100),
+                  height: adaptSize(100),
                   child: const Align(
                     alignment: Alignment.bottomRight,
                     child: Text("Align Example"),

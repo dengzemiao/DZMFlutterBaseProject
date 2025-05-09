@@ -188,10 +188,6 @@ final bottomNavigationBarTheme = BottomNavigationBarThemeData(
 /// 尺寸适配，方便需要时，统一管理尺寸，尤其需要适配平板时
 double adaptSize(double size) => size;
 // double adaptSize(double size) => size.w; // ScreenUtilInit
-double adaptWidth(double size) => size;
-// double adaptWidth(double size) => size.w; // ScreenUtilInit
-double adaptHeight(double size) => size;
-// double adaptHeight(double size) => size.w; // ScreenUtilInit
 double adaptFontSize(double size) => size;
 // double adaptFontSize(double size) => size.sp; // ScreenUtilInit
 
