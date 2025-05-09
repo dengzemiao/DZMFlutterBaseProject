@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import '../tabbar/index.dart';
-import '../public/webview.dart';
+import '../pages/tabbar/index.dart';
+import '../pages/public/webview.dart';
 // 日志页面，不用可以删除
-import '../../log/index.dart';
+import '../log/index.dart';
 
 class AppRoutes {
 

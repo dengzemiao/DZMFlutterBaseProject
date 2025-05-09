@@ -4,6 +4,7 @@ import 'package:base_project/utils/public.dart';
 import 'package:base_project/utils/constant.dart';
 import './ud_refresh/index.dart';
 import './ui_base/index.dart';
+import './permission/index.dart';
 import './request/index.dart';
 import './scroll_float/index.dart';
 import './custom_navbar/index.dart';
@@ -27,6 +28,10 @@ class CaseControllerState extends BaseStatefulControllerState {
     {
       'title': '基础布局展示',
       'route': const UiBaseController(title: '基础布局')
+    },
+    {
+      'title': '网络权限',
+      'route': const PermissionController(title: '权限')
     },
     {
       'title': '上下拉加载刷新',

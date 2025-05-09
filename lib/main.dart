@@ -3,7 +3,6 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:base_project/utils/public.dart';
 // import 'package:base_project/utils/navigator_observer.dart';
@@ -28,8 +27,6 @@ void main() {
       future: Future.wait([
         // 获取账户信息
         storage.getStringPro(PublicKey.account.value, defaultValue: '{}'),
-        // 获取网络授权状态
-        storage.getBoolPro(PublicKey.network.value, defaultValue: false),
         // 获取日志状态
         logs.sync(),
       ]),
@@ -41,8 +38,6 @@ void main() {
         }
         // 获取数据更新 账户信息
         accountModel.updateFromRawJson(snapshot.data[0]!);
-        // 获取网络授权状态
-        networkAuthorized = snapshot.data[1]!;
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
@@ -79,7 +74,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   /// 监听对象
   StreamSubscription<Uri>? _linkSubscription;
   /// 网络状态
-  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
+  // StreamSubscription? _connectivitySubscription;
   
   @override
   void initState() {
@@ -87,7 +82,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 初始化 DeepLinks 监听
     initDeepLinks();
     // 初始化网络状态
-    initConnectivity();
+    // initConnectivity();
     // 注册生命周期监听
     // WidgetsBinding.instance.addObserver(this);
     // 初始化
@@ -99,7 +94,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 取消 DeepLinks 监听
     _linkSubscription?.cancel();
     // 取消网络状态监听
-    _connectivitySubscription?.cancel();
+    // _connectivitySubscription?.cancel();
     // 移除生命周期监听
     // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -109,45 +104,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   /// 初始化网络状态
   void initConnectivity () {
     // 初始化网络监听
-    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-      // 收到可用连接类型的变化
-      if (result.contains(ConnectivityResult.mobile)) {
-        // 移动网络可用
-        logs.add({logs.keyTitle: '移动网络可用', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.wifi)) {
-        // Wi-Fi 可用
-        // 注意：对于 Android：
-        // 当移动数据和 Wi-Fi 都打开时，系统会返回 Wi-Fi 作为唯一的活动网络类型
-        logs.add({logs.keyTitle: 'Wi-Fi 可用', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.ethernet)) {
-        // 以太网连接可用
-        logs.add({logs.keyTitle: '以太网连接可用', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.vpn)) {
-        // VPN 连接活动
-        // 注意：对于 iOS 和 macOS：
-        // 对于 [vpn]，没有单独的网络接口类型。
-        // 它会在任何设备（包括模拟器）上返回 [other]
-        logs.add({logs.keyTitle: 'VPN 连接活动', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.bluetooth)) {
-        // 蓝牙连接可用
-        logs.add({logs.keyTitle: '蓝牙连接可用', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.other)) {
-        // 连接到一个未在上述网络类型中的网络
-        logs.add({logs.keyTitle: '连接到一个未在上述网络类型中的网络', logs.keySuccess: true});
-      } else if (result.contains(ConnectivityResult.none)) {
-        // 没有可用的网络类型
-        logs.add({logs.keyTitle: '没有可用的网络类型', logs.keySuccess: false});
-      }
-      // 回调
-      if (!result.contains(ConnectivityResult.none) && onConnectivitySuccess != null) {
-        // 网络授权成功
-        networkAuthorized = true;
-        // 保存网络授权状态
-        storage.setBool(PublicKey.network.value, networkAuthorized);
-        // 回调
-        onConnectivitySuccess!();
-      }
-    });
+    // _connectivitySubscription = permission.listenNetwork();
   }
 
   /// 初始化 DeepLinks 监听，例如现有 URL Scheme 配置路径：dengzemiao:///pay?id=123

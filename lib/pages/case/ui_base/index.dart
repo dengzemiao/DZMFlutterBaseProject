@@ -124,7 +124,7 @@ class UiBaseControllerState extends BaseStatefulControllerState {
                 ),
                 Container(
                   color: Colors.yellow,
-                  height: adaptSize(100),
+                  height: adaptHeight(100),
                   child: const Align(
                     alignment: Alignment.bottomRight,
                     child: Text("Align Example"),
@@ -135,9 +135,9 @@ class UiBaseControllerState extends BaseStatefulControllerState {
                     color: Colors.teal,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text("DecoratedBox Example"),
+                  child: Padding(
+                    padding: EdgeInsets.all(adaptSize(16)),
+                    child: const Text("DecoratedBox Example"),
                   ),
                 ),
                 Wrap(

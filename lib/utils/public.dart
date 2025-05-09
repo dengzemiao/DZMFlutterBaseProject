@@ -10,11 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:base_project/pages/routes/index.dart';
+import 'package:base_project/routes/index.dart';
 import 'package:base_project/components/app_update.dart';
 import 'package:base_project/model/account.dart';
 import 'package:base_project/model/app_update.dart';
 import './constant.dart';
+import './permission.dart';
 import './storage.dart';
 import './camera.dart';
 import './navigator.dart';
@@ -33,6 +34,8 @@ final routeObserver = RouteObserver<PageRoute>();
 final nav = Nav();
 /// 支付工具
 final pay = Payment();
+/// 权限工具
+final permission = Permission();
 /// Loading 工具
 final hud = Hud();
 /// 日志工具
@@ -60,10 +63,6 @@ const String agrServerUrl = 'https://edu.shieye-property.com/agr-server.html';
 String oldShareCode = '';
 /// 默认头像
 String defaultAvatarUrl = 'assets/images/image_avatar.png';
-/// 网络授权成功
-bool networkAuthorized = false;
-/// 网络授权成功回调
-Function()? onConnectivitySuccess;
 
 /// ================================================ 公共系统函数
 

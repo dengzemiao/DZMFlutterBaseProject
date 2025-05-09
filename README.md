@@ -62,18 +62,6 @@
     </application>
     ```
 
-  1. 打开 `android/app/src/main/res/values/strings.xml` 文件，找到 `app_name` 字符串并修改为新的应用名称：
-
-    ```xml
-    <string name="app_name">Your App Name</string>
-    ```
-
-  1. 确保 `AndroidManifest.xml` 中的 `android:label` 引用的是该字符串资源：
-
-    ```java
-    android:label="@string/app_name"
-    ```
-
 * ### 修改 `iOS` 应用名称：
     
   1. 打开 `ios/Runner/Info.plist` 文件，找到 `CFBundleDisplayName` 键。
