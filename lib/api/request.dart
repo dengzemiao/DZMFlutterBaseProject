@@ -155,7 +155,7 @@ class AppRequest {
   /// oss 上传文件
   Future<HttpResponse> ossUploadBase([Map<String, dynamic>? parameters]) {
     return HttpManager().postFormData(
-      url: 'https://edu-aixinghe.oss-cn-shanghai.aliyuncs.com/',
+      url: 'https://dengzemiao.oss-cn-shanghai.aliyuncs.com/',
       parameters: parameters
     );
   }
