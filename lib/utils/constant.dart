@@ -14,8 +14,6 @@ RegExp phoneRegExp = RegExp(r'^1[3-9]\d{9}$');
 
 /// 公共 Keys
 enum PublicKey {
-  /// 网络授权
-  network(value: 'network_authorized'),
   /// 是否同意协议
   isAgree(value: 'is_agree'),
   /// 账户信息

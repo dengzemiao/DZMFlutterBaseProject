@@ -15,7 +15,7 @@ import 'package:base_project/components/app_update.dart';
 import 'package:base_project/model/account.dart';
 import 'package:base_project/model/app_update.dart';
 import './constant.dart';
-import './permission.dart';
+import './network.dart';
 import './storage.dart';
 import './camera.dart';
 import './navigator.dart';
@@ -34,8 +34,8 @@ final routeObserver = RouteObserver<PageRoute>();
 final nav = Nav();
 /// 支付工具
 final pay = Payment();
-/// 权限工具
-final permission = Permission();
+/// 网络工具
+final network = Network();
 /// Loading 工具
 final hud = Hud();
 /// 日志工具

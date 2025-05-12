@@ -79,6 +79,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    // 初始化网络状态
+    network.initialize();
     // 初始化 DeepLinks 监听
     initDeepLinks();
     // 初始化网络状态
@@ -91,6 +93,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    // 取消网络状态监听
+    network.dispose();
     // 取消 DeepLinks 监听
     _linkSubscription?.cancel();
     // 取消网络状态监听
