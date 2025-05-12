@@ -92,9 +92,9 @@ class Network {
   /// 处理网络变化
   void _handleConnectivityChange(List<ConnectivityResult> results) {  
     final isConnected = !results.contains(ConnectivityResult.none);
-    final resultsString = results.join(',').replaceAll('ConnectivityResult.', '');
-    _logs.add({_logs.keyTitle: '网络状态变化 - $resultsString', _logs.keySuccess: isConnected, _logs.keyData: resultsString});
     if (isConnected != _lastConnected || !listEquals(results, _lastResults)) {
+      final resultsString = results.join(',').replaceAll('ConnectivityResult.', '');
+      _logs.add({_logs.keyTitle: '网络状态变化 - $resultsString', _logs.keySuccess: isConnected, _logs.keyData: resultsString});
       _lastResults = results;
       _lastConnected = isConnected;
       _notifyAll(results, isConnected);
