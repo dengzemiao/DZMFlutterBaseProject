@@ -129,9 +129,9 @@ class LogControllerState extends BaseScrollControllerState {
                                 debugTypeString = '正式环境';
                                 debugType = 2;
                               } else if (debugType == 2) {
-                                // 当前正式环境切换到系统环境
-                                debugTypeString = '系统环境';
-                                debugType = 0;
+                                // 当前正式环境切换到测试环境
+                                debugTypeString = '测试环境';
+                                debugType = 1;
                               }
                               // 直接退出登录
                               logout(() {
