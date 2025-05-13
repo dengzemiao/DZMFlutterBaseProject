@@ -133,18 +133,10 @@ class LogControllerState extends BaseScrollControllerState {
                                 debugTypeString = '系统环境';
                                 debugType = 0;
                               }
-                              // 有用户登录
-                              if (accountModel.accessToken != null) {
-                                // 调用接口退出登录
-                                logoutRequest(() {
-                                  nav.offAllNamed(appRoutes.initialRoute);
-                                });
-                              } else {
-                                // 直接退出登录
-                                logout(() {
-                                  nav.offAllNamed(appRoutes.initialRoute);
-                                });
-                              }
+                              // 直接退出登录
+                              logout(() {
+                                nav.offAllNamed(appRoutes.initialRoute);
+                              });
                               // 强行开启日志
                               _logs.enable(true, context: context);
                               // 添加日志
