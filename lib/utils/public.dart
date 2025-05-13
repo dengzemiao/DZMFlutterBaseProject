@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -59,8 +60,8 @@ const bool showRequestLog = false;
 const String agrPrivacyUrl = 'https://edu.shieye-property.com/agr-privacy.html';
 /// 服务协议地址
 const String agrServerUrl = 'https://edu.shieye-property.com/agr-server.html';
-/// 旧口令记录
-String oldShareCode = '';
+/// 接口调试类型 0: 系统环境, 1: 测试环境, 2: 正式环境
+int debugType = 0;
 /// 默认头像
 String defaultAvatarUrl = 'assets/images/image_avatar.png';
 
@@ -108,12 +109,15 @@ void initAppUpdate(BuildContext context) async {
     if (response.code == 0) {
       // 检查更新
       final appUpdateModel = AppUpdateModel.fromJson(response.data['app_version']);
-      // 弹出更新
-      if (context.mounted) {
-        AppUpdate.show(
-          context: context,
-          model: appUpdateModel,
-        );
+      // 版本比较
+      if (Version.parse(appUpdateModel.latestVersion ?? '1.0.0') > Version.parse(packageInfo.version)) {
+        // 弹出更新
+        if (context.mounted) {
+          AppUpdate.show(
+            context: context,
+            model: appUpdateModel,
+          );
+        }
       }
     }
   } catch (_) {}
@@ -133,6 +137,15 @@ void log(Object? object, [String? title]) {
 // kReleaseMode: 为 true 时表示处于 发布模式。
 // kProfileMode: 为 true 时表示处于 性能分析模式。
 bool isDebug() {
+  // 判断调试类型
+  if (debugType == 1) {
+    // 测试环境
+    return true;
+  } else if (debugType == 2) {
+    // 开发环境
+    return false;
+  }
+  // 系统环境
   return !kReleaseMode;
 }
 /// 状态栏高度

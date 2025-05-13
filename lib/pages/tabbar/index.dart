@@ -104,6 +104,14 @@ class _TabbarControllerState extends State<TabbarController> {
           activeIcon: Image.asset(item['activeIcon']!, width: 24.0, height: 24.0),
           label: item['label']
         )).toList(),
+        // 选中项颜色（文字 + 图标）
+        selectedItemColor: Colors.red,
+        // 未选中项颜色（文字 + 图标）
+        unselectedItemColor: Colors.yellow,
+        // 选中项文字样式
+        // selectedLabelStyle: const TextStyle(fontSize: 12.0),
+        // 未选中项文字样式
+        // unselectedLabelStyle: const TextStyle(fontSize: 12.0),
       ),
     );
   }
