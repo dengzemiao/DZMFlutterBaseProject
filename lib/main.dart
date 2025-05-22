@@ -73,8 +73,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late AppLinks _appLinks;
   /// 监听对象
   StreamSubscription<Uri>? _linkSubscription;
-  /// 网络状态
-  // StreamSubscription? _connectivitySubscription;
   
   @override
   void initState() {
@@ -89,6 +87,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // WidgetsBinding.instance.addObserver(this);
     // 初始化
     initPub();
+    // 添加一次性监听，网络连接成功时，会调用此方法
+    network.addOneTimeListener(({required results, required isConnected}) {
+      if (isConnected) {
+        // 操作当前页面的网络数据
+        initOnConnectivitySuccess();
+      }
+    });
   }
 
   @override
@@ -97,18 +102,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     network.dispose();
     // 取消 DeepLinks 监听
     _linkSubscription?.cancel();
-    // 取消网络状态监听
-    // _connectivitySubscription?.cancel();
     // 移除生命周期监听
     // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
-
-  /// 初始化网络状态
-  void initConnectivity () {
-    // 初始化网络监听
-    // _connectivitySubscription = permission.listenNetwork();
+  
+  /// 初始化网络授权成功回调
+  void initOnConnectivitySuccess () {
   }
 
   /// 初始化 DeepLinks 监听，例如现有 URL Scheme 配置路径：dengzemiao:///pay?id=123
