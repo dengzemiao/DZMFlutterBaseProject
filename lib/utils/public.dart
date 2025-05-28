@@ -67,10 +67,6 @@ String defaultAvatarUrl = 'assets/images/image_avatar.png';
 
 /// ================================================ 公共系统函数
 
-/// 初始化
-void initPub() {
-}
-
 /// DeepLinks 处理，例如 dengzemiao:///pages/player?id=123
 void deepLinksHandle(Uri? link) {
   // 有值

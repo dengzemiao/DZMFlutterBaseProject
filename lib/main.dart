@@ -81,12 +81,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     network.initialize();
     // 初始化 DeepLinks 监听
     initDeepLinks();
-    // 初始化网络状态
-    // initConnectivity();
     // 注册生命周期监听
     // WidgetsBinding.instance.addObserver(this);
-    // 初始化
-    initPub();
     // 添加一次性监听，网络连接成功时，会调用此方法
     network.addOneTimeListener(({required results, required isConnected}) {
       if (isConnected) {
