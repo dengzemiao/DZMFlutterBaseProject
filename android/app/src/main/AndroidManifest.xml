@@ -1,21 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"><!-- required="true"：如果设备没有摄像头，应用就无法安装；required="false"：即使设备没有摄像头，应用也能安装并运行，不过可能会提示用户无法使用某些功能 -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <!-- 闪光灯 -->
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!-- 请求写入存储权限（选择和保存相册中的图片）-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 如果使用了访问相册，且是 Android 10（API 29）及以上版本，还需要配置 -->
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <!-- 附件外部打开 - 读取外部存储权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 附件外部打开 - 写入外部存储权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 允许应用程序访问互联网，需要通过网络进行数据通信、下载文件、加载视频流等操作 -->
+    <!-- 允许使用闪光灯功能 -->
+    <!-- <uses-permission android:name="android.permission.FLASHLIGHT"/> -->
+    <!-- 允许访问摄像头 -->
+    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+    <!-- 允许写入外部存储，用于保存或修改相册中的图片 -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
+    <!-- Android 10（API 29）及以上，访问媒体文件的位置信息权限 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" /> -->
+    <!-- 读取外部存储，用于访问设备上的文件 -->
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+    <!-- 写入外部存储，用于修改或保存设备上的文件 -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+    <!-- 允许应用访问互联网，用于网络通信、文件下载、视频流等 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 允许应用程序访问设备的网络状态信息 -->
+    <!-- 允许应用访问设备的网络连接状态（如是否联网） -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许应用访问Wi-Fi状态信息（如Wi-Fi是否开启、连接的SSID等） -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 列出需要检查的 URL schemes -->
     <queries>
