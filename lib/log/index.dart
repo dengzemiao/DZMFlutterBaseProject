@@ -145,7 +145,7 @@ class LogControllerState extends BaseScrollControllerState {
                                 _logs.keyData: debugType
                               });
                               // 提示
-                              Hud().showToast('当前接口环境已切换为 $debugTypeString');
+                              Hud().showToast('当前接口环境切换为 $debugTypeString');
                               // 不执行后续代码了
                               return;
                             }
