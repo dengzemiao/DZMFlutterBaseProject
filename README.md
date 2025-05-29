@@ -103,13 +103,13 @@
   #【测试】
   $ flutter build apk --debug
 
-  #【测试】使用 appbundle（适用于发布到 Google Play）
+  #【测试】使用 appbundle（适用于发布到 Google Play，内购测试不支持这个）
   $ flutter build appbundle --debug
 
   #【正式】
   $ flutter build apk --release
-
-  #【正式】使用 appbundle（适用于发布到 Google Play）
+  
+  #【正式】使用 appbundle（适用于发布到 Google Play，内购测试只支持这个）
   $ flutter build appbundle --release
   ```
 
