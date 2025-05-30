@@ -123,6 +123,8 @@ class LogControllerState extends BaseScrollControllerState {
                               });
                               // 强行开启日志
                               logs.enable(true, context: context);
+                              // 添加日志
+                              logs.add({logs.keyTitle: '当前环境：${isDebugMode ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
                               // 提示
                               hud.showToast('当前环境：${isDebugMode ? '测试' : '正式'}');
                               // 不执行后续代码了
