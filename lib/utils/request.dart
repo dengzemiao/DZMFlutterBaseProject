@@ -152,8 +152,7 @@ class HttpManager {
         logs.add({
           logs.keyTitle: '${method.value} $url',
           logs.keySuccess: httpResponse.code == 0,
-          logs.keyData: method == HttpMethod.postFormData ? parameters.toString() : data,
-          'queryParameters': queryParameters,
+          'parameters': method == HttpMethod.get ? queryParameters : (method == HttpMethod.postFormData ? parameters.toString() : data),
           'headers': {...headers ?? {}, ..._dio.options.headers},
           logs.keyData: dioResponse.data
         });
@@ -164,8 +163,7 @@ class HttpManager {
         logs.add({
           logs.keyTitle: '${method.value} $url',
           logs.keySuccess: false,
-          logs.keyData: method == HttpMethod.postFormData ? parameters.toString() : data,
-          'queryParameters': queryParameters,
+          'parameters': method == HttpMethod.get ? queryParameters : (method == HttpMethod.postFormData ? parameters.toString() : data),
           'headers': {...headers ?? {}, ..._dio.options.headers},
           logs.keyData: e.toString()
         });
