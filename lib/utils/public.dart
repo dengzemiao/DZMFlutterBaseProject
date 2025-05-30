@@ -130,6 +130,7 @@ void log(Object? object, [String? title]) {
     print('==================================================');
   }
 }
+
 /// 状态栏高度
 double getStatusBarHeight(BuildContext context) {
   return MediaQuery.of(context).padding.top;
