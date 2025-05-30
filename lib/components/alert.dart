@@ -19,7 +19,7 @@ class CustomAlert {
       barrierDismissible: barrierDismissible ?? false,
       builder: (BuildContext context) {
         return PopScope(
-          // 阻止物理返回键
+          // 允许物理返回键
           canPop: barrierDismissible ?? false,
           child: Dialog(
             // 弹框的“外部”空隙，避免弹出框紧贴屏幕边缘，不设置有默认值，如果想弹窗宽点可以设置

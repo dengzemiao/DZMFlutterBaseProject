@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // );
 
     // return PopScope(
-    //   // 禁止返回
+    //   // 允许物理返回键
     //   canPop: false,
     //   // 回调
     //   onPopInvokedWithResult: (didPop, result) {
