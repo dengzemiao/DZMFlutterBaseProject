@@ -18,6 +18,8 @@ enum PublicKey {
   isAgree(value: 'is_agree'),
   /// 账户信息
   account(value: 'account_info'),
+  /// 是否是调试模式
+  debugMode(value: 'debug_mode'),
   ;
   /// value
   final String value;

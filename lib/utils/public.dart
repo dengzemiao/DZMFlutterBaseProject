@@ -60,8 +60,11 @@ const bool showRequestLog = false;
 const String agrPrivacyUrl = 'https://edu.shieye-property.com/agr-privacy.html';
 /// 服务协议地址
 const String agrServerUrl = 'https://edu.shieye-property.com/agr-server.html';
-/// 接口调试类型 0: 系统环境, 1: 测试环境, 2: 正式环境
-int debugType = 0;
+/// 是否是调试模式
+// kDebugMode: 为 true 时表示处于 调试模式。
+// kReleaseMode: 为 true 时表示处于 发布模式。
+// kProfileMode: 为 true 时表示处于 性能分析模式。
+bool isDebugMode = kDebugMode;
 /// 默认头像
 String defaultAvatarUrl = 'assets/images/image_avatar.png';
 
@@ -126,23 +129,6 @@ void log(Object? object, [String? title]) {
     print(object);
     print('==================================================');
   }
-}
-
-/// 判断是否为线上环境
-// kDebugMode: 为 true 时表示处于 调试模式。
-// kReleaseMode: 为 true 时表示处于 发布模式。
-// kProfileMode: 为 true 时表示处于 性能分析模式。
-bool isDebug() {
-  // 判断调试类型
-  if (debugType == 1) {
-    // 测试环境
-    return true;
-  } else if (debugType == 2) {
-    // 开发环境
-    return false;
-  }
-  // 系统环境
-  return !kReleaseMode;
 }
 /// 状态栏高度
 double getStatusBarHeight(BuildContext context) {

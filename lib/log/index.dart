@@ -6,9 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:base_project/base/scroll/index.dart';
 import 'package:base_project/utils/public.dart';
-import './logs.dart';
-import '../utils/hud.dart';
-import '../../model/account.dart';
+import 'package:base_project/utils/constant.dart';
 
 class LogController extends BaseScrollController {
 
@@ -20,23 +18,20 @@ class LogController extends BaseScrollController {
 
 class LogControllerState extends BaseScrollControllerState {
 
-  // 日志对象
-  final _logs = Logs();
-
   @override
   void initState() {
     super.initState();
     // 重新进入清空
-    _logs.enableDevCounter = 0;
+    logs.enableDevCounter = 0;
     // 进入了日志页面
-    _logs.isInTheLogPage = true;
+    logs.isInTheLogPage = true;
   }
 
   @override
   void dispose() { 
     super.dispose();
     // 离开了日志页面
-    _logs.isInTheLogPage = false;
+    logs.isInTheLogPage = false;
   }
 
   @override
@@ -57,9 +52,9 @@ class LogControllerState extends BaseScrollControllerState {
     try {
       // 获取运行模式
       setState(() {
-        _logs.add({
-          _logs.keyTitle: '运行模式',
-          _logs.keyData: {
+        logs.add({
+          logs.keyTitle: '运行模式',
+          logs.keyData: {
             'debug': kDebugMode,
             'release': kReleaseMode,
             'profile': kProfileMode,
@@ -69,17 +64,17 @@ class LogControllerState extends BaseScrollControllerState {
       // 获取应用信息
       final info = await PackageInfo.fromPlatform();
       setState(() {
-        _logs.add({
-          _logs.keyTitle: '应用信息',
-          _logs.keyData: info.toString()
+        logs.add({
+          logs.keyTitle: '应用信息',
+          logs.keyData: info.toString()
         });
       });
       // 获取设备信息
       final deviceInfo = await DeviceInfoPlugin().deviceInfo;
       setState(() {
-        _logs.add({
-          _logs.keyTitle: '设备信息',
-          _logs.keyData: deviceInfo.toString()
+        logs.add({
+          logs.keyTitle: '设备信息',
+          logs.keyData: deviceInfo.toString()
         });
       });
     } catch (_) {}
@@ -115,42 +110,26 @@ class LogControllerState extends BaseScrollControllerState {
                         onTap: () {
                           setState(() {
                             // 切换日志开关次数计数器
-                            _logs.enableDevCounter += 1;
+                            logs.enableDevCounter += 1;
                             // 检查数量次数是否达到
-                            if (_logs.enableDevCounter % _logs.enableDevCounterNumber == 0) {
-                              // 判断切换环境
-                              String debugTypeString = '';
-                              if (debugType == 0) {
-                                // 当前系统环境切换到测试环境
-                                debugTypeString = '测试环境';
-                                debugType = 1;
-                              } else if (debugType == 1) {
-                                // 当前测试环境切换到正式环境
-                                debugTypeString = '正式环境';
-                                debugType = 2;
-                              } else if (debugType == 2) {
-                                // 当前正式环境切换到测试环境
-                                debugTypeString = '测试环境';
-                                debugType = 1;
-                              }
+                            if (logs.enableDevCounter % logs.enableDevCounterNumber == 0) {
+                              // 切换环境
+                              isDebugMode = !isDebugMode;
+                              // 存储环境
+                              storage.setBool(PublicKey.debugMode.value, isDebugMode);
                               // 直接退出登录
                               logout(() {
                                 nav.offAllNamed(appRoutes.initialRoute);
                               });
                               // 强行开启日志
-                              _logs.enable(true, context: context);
-                              // 添加日志
-                              _logs.add({
-                                _logs.keyTitle: '当前接口环境 - $debugTypeString',
-                                _logs.keyData: debugType
-                              });
+                              logs.enable(true, context: context);
                               // 提示
-                              Hud().showToast('当前接口环境切换为 $debugTypeString');
+                              hud.showToast('当前环境：${isDebugMode ? '测试' : '正式'}');
                               // 不执行后续代码了
                               return;
                             }
                             // 切换状态
-                            _logs.enable(!_logs.isEnable, context: context);
+                            logs.enable(!logs.isEnable, context: context);
                           });
                         },
                         child: Container(
@@ -159,7 +138,7 @@ class LogControllerState extends BaseScrollControllerState {
                             border: Border.all(color: Colors.white, width: 1.0),
                             borderRadius: const BorderRadius.all(Radius.circular(4))
                           ),
-                          child: Center(child: Text('${_logs.isEnable ? '关闭' : '开启'}日志', style: const TextStyle(color: Colors.white)))
+                          child: Center(child: Text('${logs.isEnable ? '关闭' : '开启'}日志', style: const TextStyle(color: Colors.white)))
                         ),
                       )
                     ),
@@ -169,7 +148,7 @@ class LogControllerState extends BaseScrollControllerState {
                       child: InkWell(
                         onTap: () {
                           setState(() {
-                            _logs.clear();
+                            logs.clear();
                           });
                         },
                         child: Container(
@@ -210,9 +189,9 @@ class LogControllerState extends BaseScrollControllerState {
                       child: InkWell(
                         onTap: () {
                           setState(() {
-                            _logs.add({
-                              _logs.keyTitle: '用户信息',
-                              _logs.keyData: AccountModel().toJson()
+                            logs.add({
+                              logs.keyTitle: '用户信息',
+                              logs.keyData: accountModel.toJson()
                             });
                           });
                         },
@@ -238,10 +217,10 @@ class LogControllerState extends BaseScrollControllerState {
                         onTap: () {
                           setState(() {
                             // 切换状态
-                            _logs.isExpanded = !_logs.isExpanded;
+                            logs.isExpanded = !logs.isExpanded;
                             // 便利状态
-                            for (int i = 0; i < _logs.logs.length; i++) {
-                              _logs.logs[i]['expand'] = _logs.isExpanded;
+                            for (int i = 0; i < logs.logs.length; i++) {
+                              logs.logs[i]['expand'] = logs.isExpanded;
                             }
                           });
                         },
@@ -251,7 +230,7 @@ class LogControllerState extends BaseScrollControllerState {
                             border: Border.all(color: Colors.white, width: 1.0),
                             borderRadius: const BorderRadius.all(Radius.circular(4))
                           ),
-                          child: Center(child: Text('${_logs.isExpanded ? '收起' : '展开'}全部日志', style: const TextStyle(color: Colors.white)))
+                          child: Center(child: Text('${logs.isExpanded ? '收起' : '展开'}全部日志', style: const TextStyle(color: Colors.white)))
                         ),
                       )
                     ),
@@ -265,7 +244,7 @@ class LogControllerState extends BaseScrollControllerState {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              Map<String, dynamic> log = _logs.logs[index];
+              Map<String, dynamic> log = logs.logs[index];
               return Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -305,7 +284,7 @@ class LogControllerState extends BaseScrollControllerState {
                                 InkWell(
                                   onTap: () {
                                     copy(jsonFormat(log));
-                                    Hud().showToast('复制成功');
+                                    hud.showToast('复制成功');
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -367,7 +346,7 @@ class LogControllerState extends BaseScrollControllerState {
                 ),
               );
             },
-            childCount: _logs.logs.length,
+            childCount: logs.logs.length,
           ),
         ),
       ]

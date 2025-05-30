@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:base_project/utils/public.dart';
@@ -27,6 +28,8 @@ void main() {
       future: Future.wait([
         // 获取账户信息
         storage.getStringPro(PublicKey.account.value, defaultValue: '{}'),
+        // 获取是否是调试模式
+        storage.getBool(PublicKey.debugMode.value, defaultValue: kDebugMode),
         // 获取日志状态
         logs.sync(),
       ]),
@@ -37,7 +40,9 @@ void main() {
           return const MaterialApp(home: Center(child: CircularProgressIndicator()));
         }
         // 获取数据更新 账户信息
-        accountModel.updateFromRawJson(snapshot.data[0]!);
+        accountModel.updateFromRawJson(snapshot.data[0]);
+        // 获取是否是调试模式
+        isDebugMode = snapshot.data[2];
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
@@ -77,6 +82,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    // 添加日志
+    logs.add({logs.keyTitle: '当前环境：${isDebugMode ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
     // 初始化网络状态
     network.initialize();
     // 初始化 DeepLinks 监听

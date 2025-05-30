@@ -4,7 +4,7 @@ import 'package:base_project/utils/public.dart';
 
 /// 请求参数
 class HttpConfig {
-  // static String baseUrl = isDebug() ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
+  // static String baseUrl = isDebugMode ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
   static const connectTimeout = 60;
   static const receiveTimeout = 60;
   static const contentType = 'application/json; charset=utf-8';
@@ -75,7 +75,7 @@ class HttpManager {
     /// 初始化Dio对象
     _dio = Dio(options);
     /// 各种拦截器
-    // if (isDebug()) {}
+    // if (isDebugMode) {}
   }
 
   /// 公共请求
@@ -117,7 +117,7 @@ class HttpManager {
     }
     // 请求地址
     // final reqUrl = url.startsWith('http') ? url : HttpConfig.baseUrl + url;
-    String baseUrl = isDebug() ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
+    String baseUrl = isDebugMode ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
     String reqUrl = url.startsWith('http') ? url : baseUrl + url;
     // 请求处理
     try {
