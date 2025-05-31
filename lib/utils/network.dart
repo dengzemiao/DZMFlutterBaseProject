@@ -73,31 +73,56 @@ class Network {
   /// 释放资源
   void dispose() {
     _logs.add({_logs.keyTitle: '释放网络监听', _logs.keySuccess: true});
+    // 释放网络监听
     _subscription?.cancel();
+    // 清空持久回调列表
     _persistentCallbacks.clear();
+    // 清空一次性回调列表
     _oneTimeCallbacks.clear();
+    // 清空当前网络状态
     _lastResults = [];
+    // 清空当前网络是否连接
     _lastConnected = false;
   }
 
   /// 检查初始网络状态
   Future<void> _checkInitialStatus() async {
+    // 获取初始网络状态
     _lastResults = await _connectivity.checkConnectivity();
+    // 获取初始网络是否连接
     _lastConnected = !_lastResults.contains(ConnectivityResult.none);
+    // 获取初始网络状态字符串
     final lastResultsString = _lastResults.join(',').replaceAll('ConnectivityResult.', '');
     _logs.add({_logs.keyTitle: '网络状态初检 - $lastResultsString', _logs.keySuccess: _lastConnected, _logs.keyData: lastResultsString});
+    // 通知所有回调
     _notifyAll(_lastResults, _lastConnected);
   }
 
   /// 处理网络变化
-  void _handleConnectivityChange(List<ConnectivityResult> results) {  
-    final isConnected = !results.contains(ConnectivityResult.none);
-    if (isConnected != _lastConnected || !listEquals(results, _lastResults)) {
-      final resultsString = results.join(',').replaceAll('ConnectivityResult.', '');
+  void _handleConnectivityChange(List<ConnectivityResult> results) async {  
+    // 当前网络状态
+    List<ConnectivityResult> currentResults = results;
+    // 获取当前网络是否连接
+    bool isConnected = !currentResults.contains(ConnectivityResult.none);
+    // 如果是无网络状态，需要二次确认
+    if (!isConnected) {
+      // 获取初始网络状态
+      currentResults = await _connectivity.checkConnectivity();
+      // 获取当前网络是否连接
+      isConnected = !currentResults.contains(ConnectivityResult.none);
+    }
+    // 如果当前网络状态与上次不同，或者当前网络状态与上次网络状态不同，则通知所有回调
+    if (isConnected != _lastConnected || !listEquals(currentResults, _lastResults)) {
+      // 获取当前网络状态字符串
+      final resultsString = currentResults.join(',').replaceAll('ConnectivityResult.', '');
+      // 记录日志
       _logs.add({_logs.keyTitle: '网络状态变化 - $resultsString', _logs.keySuccess: isConnected, _logs.keyData: resultsString});
-      _lastResults = results;
+      // 更新当前网络状态
+      _lastResults = currentResults;
+      // 更新当前网络是否连接
       _lastConnected = isConnected;
-      _notifyAll(results, isConnected);
+      // 通知所有回调
+      _notifyAll(currentResults, isConnected);
     }
   }
 
@@ -105,14 +130,16 @@ class Network {
   void _notifyAll(List<ConnectivityResult> results, bool isConnected) {
     // 如果当前有网络，则先处理一次性回调
     if (isConnected) {
-      // 处理一次性回调
+      // 获取一次性回调列表
       final oneTimeCallbacks = List<NetworkCallback>.from(_oneTimeCallbacks);
+      // 清空一次性回调列表
       _oneTimeCallbacks.clear();
+      // 遍历一次性回调列表
       for (final callback in oneTimeCallbacks) {
         callback(results: _lastResults, isConnected: _lastConnected);
       }
     }
-    // 处理持久回调
+    // 遍历持久回调列表
     for (final callback in _persistentCallbacks) {
       callback(results: _lastResults, isConnected: _lastConnected);
     }
