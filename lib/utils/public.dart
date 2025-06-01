@@ -418,10 +418,15 @@ String getImageUrl(String? url, [String? defaultUrl]) {
   return (url ?? '').isNotEmpty ? url! : (defaultUrl ?? '');
 }
 
-/// 金额
+/// 金额，直接保留两位小数，不足两位补0
 String amountAsFixed(double? value, [int? fractionDigits]) {
   return (value ?? 0).toStringAsFixed(fractionDigits ?? 2);
 }
+/// 分转元，去除末尾多余的0
+// String amountAsFixed(double? value, {int fractionDigits = 2}) {
+//   final yuan = (value ?? 0) / 100;
+//   return yuan.toStringAsFixed(fractionDigits).replaceFirst(RegExp(r'\.?0+$'), '');
+// }
 
 /// 退出登录
 void logoutRequest([VoidCallback? onSuccess]) async {
