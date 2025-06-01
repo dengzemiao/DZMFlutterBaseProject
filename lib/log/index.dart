@@ -329,7 +329,7 @@ class LogControllerState extends BaseScrollControllerState {
                                       '${log['title']}',
                                       style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
+                                      maxLines: 2,
                                     ),
                                   ),
                                 ]
