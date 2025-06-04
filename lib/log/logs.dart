@@ -103,7 +103,7 @@ class Logs {
     // 移除日志按钮
     LogButton.remove();
     // 清空日志
-    clear();
+    // clear();
   }
 
   /// 切换日志开关
