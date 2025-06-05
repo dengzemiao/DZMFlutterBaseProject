@@ -428,6 +428,22 @@ String amountAsFixed(double? value, [int? fractionDigits]) {
 //   return yuan.toStringAsFixed(fractionDigits).replaceFirst(RegExp(r'\.?0+$'), '');
 // }
 
+// 打开日志
+void onOpenLog(BuildContext? context) {
+  // 计数
+  logs.enableCounter += 1;
+  // 检查数量次数是否达到
+  if (logs.enableCounter % logs.enableCounterNumber == 0) {
+    // 切换开关
+    logs.enable(!logs.isEnable, context: context);
+  } else {
+    // 如果日志开启，并且有上下文，则显示日志按钮，防止兼容问题初始化失败
+    if (logs.isEnable && context != null) {
+      logs.showButton(context);
+    }
+  }
+}
+
 /// 退出登录
 void logoutRequest([VoidCallback? onSuccess]) async {
   try {
