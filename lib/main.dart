@@ -43,6 +43,8 @@ void main() {
         accountModel.updateFromRawJson(snapshot.data[0]);
         // 获取是否是调试模式
         isDebugMode ??= snapshot.data[1];
+        // 添加日志
+        logs.add({logs.keyTitle: '当前环境：${isDebugMode! ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
@@ -82,8 +84,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // 添加日志
-    logs.add({logs.keyTitle: '当前环境：${isDebugMode! ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
     // 初始化网络状态
     network.initialize();
     // 初始化 DeepLinks 监听
