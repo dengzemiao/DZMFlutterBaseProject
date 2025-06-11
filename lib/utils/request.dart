@@ -117,7 +117,7 @@ class HttpManager {
     }
     // 请求地址
     // final reqUrl = url.startsWith('http') ? url : HttpConfig.baseUrl + url;
-    String baseUrl = isDebugMode ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
+    String baseUrl = isDebugMode! ? 'https://test.dzm.com/' : 'https://build.dzm.com/';
     String reqUrl = url.startsWith('http') ? url : baseUrl + url;
     // 请求处理
     try {

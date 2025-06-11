@@ -108,33 +108,28 @@ class LogControllerState extends BaseScrollControllerState {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          setState(() {
-                            // 切换日志开关次数计数器
-                            logs.enableDevCounter += 1;
-                            // 检查数量次数是否达到
-                            if (logs.enableDevCounter % logs.enableDevCounterNumber == 0) {
-                              // 切换环境
-                              isDebugMode = !isDebugMode;
-                              // 存储环境
-                              storage.setBool(PublicKey.debugMode.value, isDebugMode);
-                              // 直接退出登录
-                              logout(() {
-                                nav.offAllNamed(appRoutes.initialRoute);
-                              });
-                              // 强行开启日志
-                              logs.enable(true, context: context);
-                              // 清空日志
-                              logs.clear();
-                              // 添加日志
-                              logs.add({logs.keyTitle: '当前环境：${isDebugMode ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
-                              // 提示
-                              hud.showToast('当前环境：${isDebugMode ? '测试' : '正式'}');
-                              // 不执行后续代码了
-                              return;
-                            }
+                          // 切换日志开关次数计数器
+                          logs.enableDevCounter += 1;
+                          // 检查数量次数是否达到
+                          if (logs.enableDevCounter % logs.enableDevCounterNumber == 0) {
+                            // 切换环境
+                            isDebugMode = !isDebugMode!;
+                            // 存储环境
+                            storage.setBool(PublicKey.debugMode.value, isDebugMode!);
+                            // 直接退出登录
+                            logout(() {
+                              nav.offAllNamed(appRoutes.initialRoute);
+                            });
+                            // 强行开启日志
+                            logs.enable(true, context: context);
+                            // 添加日志
+                            logs.add({logs.keyTitle: '当前环境：${isDebugMode! ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
+                            // 提示
+                            hud.showToast('当前环境：${isDebugMode! ? '测试' : '正式'}');
+                          } else {
                             // 切换状态
                             logs.enable(!logs.isEnable, context: context);
-                          });
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

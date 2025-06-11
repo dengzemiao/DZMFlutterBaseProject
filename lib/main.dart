@@ -42,7 +42,7 @@ void main() {
         // 获取数据更新 账户信息
         accountModel.updateFromRawJson(snapshot.data[0]);
         // 获取是否是调试模式
-        isDebugMode = snapshot.data[2];
+        isDebugMode ??= snapshot.data[1];
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     // 添加日志
-    logs.add({logs.keyTitle: '当前环境：${isDebugMode ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
+    logs.add({logs.keyTitle: '当前环境：${isDebugMode! ? '测试' : '正式'}', logs.keyData: {'isDebugMode': isDebugMode}});
     // 初始化网络状态
     network.initialize();
     // 初始化 DeepLinks 监听
@@ -114,25 +114,44 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initOnConnectivitySuccess () {
   }
 
-  /// 初始化 DeepLinks 监听，例如现有 URL Scheme 配置路径：dengzemiao:///pay?id=123
+  /// 初始化 DeepLinks 监听，例如现有 URL Scheme 配置路径：aixuetang:///pay?id=123
   void initDeepLinks() async {
     try {
       _appLinks = AppLinks();
       // 获取启动时的链接
       _appLinks.getInitialLink().then((link) {
+        // 日志记录
+        logs.add({logs.keyTitle: 'DeepLinks - 启动链接 - ${link != null ? '有值' : '无值'}', logs.keyData: {
+          'link': link.toString(),
+          'path': link?.path,
+          'host': link?.host,
+          'scheme': link?.scheme,
+          'fragment': link?.fragment,
+          'pathSegments': link?.pathSegments,
+          'queryParameters': link?.queryParameters,
+        }});
         // 如果有值，处理启动时接收到的链接
         if (link != null) {
-          logs.add({logs.keyTitle: '启动时的链接', 'link': link.toString()});
           deepLinksHandle(link);
         }
       });
       // 监听链接变化，应用在运行时接收到的链接，或每当应用通过深度链接被唤醒时，都会触发该方法
       _linkSubscription = _appLinks.uriLinkStream.listen((link) {
-        logs.add({logs.keyTitle: '唤醒时的链接', 'link': link.toString()});
+        // 日志记录
+        logs.add({logs.keyTitle: 'DeepLinks -唤醒链接 - 有值', logs.keyData: {
+          'link': link.toString(),
+          'path': link.path,
+          'host': link.host,
+          'scheme': link.scheme,
+          'fragment': link.fragment,
+          'pathSegments': link.pathSegments,
+          'queryParameters': link.queryParameters,
+        }});
+        // 处理链接
         deepLinksHandle(link);
       });
     } catch (e) {
-      logs.add({logs.keyTitle: 'DeepLinks 报错', logs.keySuccess: false, logs.keyData: e.toString()});
+      logs.add({logs.keyTitle: 'DeepLinks - 报错', logs.keySuccess: false, logs.keyData: e.toString()});
     }
   }
 

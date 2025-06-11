@@ -64,7 +64,7 @@ const String agrServerUrl = 'https://edu.shieye-property.com/agr-server.html';
 // kDebugMode: 为 true 时表示处于 调试模式。
 // kReleaseMode: 为 true 时表示处于 发布模式。
 // kProfileMode: 为 true 时表示处于 性能分析模式。
-bool isDebugMode = kDebugMode;
+bool? isDebugMode;
 /// 默认头像
 String defaultAvatarUrl = 'assets/images/image_avatar.png';
 
