@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,7 @@ import './camera.dart';
 import './navigator.dart';
 import './hud.dart';
 import './payment.dart';
+import './date.dart';
 import '../log/logs.dart';
 import '../api/request.dart';
 
@@ -49,6 +49,8 @@ final appRoutes = AppRoutes();
 final appRequest = AppRequest();
 /// 存储实例
 final storage = Storage();
+/// 时间工具
+final date = Date();
 
 /// 导航条高度
 final navBarHeight = adaptSize(54.0);
@@ -74,18 +76,15 @@ String defaultAvatarUrl = 'assets/images/image_avatar.png';
 void deepLinksHandle(Uri? link) {
   // 有值
   if (link != null) {
-    // 输出
-    // log(link.path);
-    // log(link.queryParameters);
-    // 日志路径
+    // 进日志页面，dengzemiao:///log
     if (link.path == appRoutes.logvc) {
       // 打开/关闭日志
-      if (link.queryParameters.containsKey('open')) {
-        final openLog = link.queryParameters['open'];
-        logs.enable(openLog == '1' || openLog == 'true');
-      }
-      // 跳转页面
-      nav.toNamed(link.path, parameters: link.queryParameters);
+      logs.enable(true);
+      // 延迟 1 秒跳转页面
+      Future.delayed(const Duration(seconds: 1), () {
+        // 跳转页面
+        nav.toNamed(appRoutes.logvc);
+      });
     }
   }
 }
@@ -247,37 +246,6 @@ Future<void> copy ([String? text]) async {
   await Clipboard.setData(ClipboardData(text: text ?? ''));
 }
 
-/// ================================================ 时间戳处理
-
-/// 判断指定时间戳是否超过今天，并指定超过多少天
-bool isTimestampOverDays(int timestamp, int days) {
-  // 获取当前时间的秒级时间戳
-  int currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-  // 计算时间差（单位：秒）
-  int difference = currentTimestamp - timestamp;
-  // 判断时间差是否超过指定天的秒数
-  return difference > (days * 24 * 60 * 60);
-}
-
-/// 格式化时间戳（秒）
-String formatTimestamp(int? timestamp,  {bool showHours = true}) {
-  return formatDuration(Duration(seconds: timestamp ?? 0), showHours: showHours);
-}
-
-/// 格式化时间为 `00:00:00` 或者 `00:00`
-String formatDuration (Duration? duration, {bool showHours = true}) {
-  // 确保有值
-  final temp = duration ?? Duration.zero;
-  // 格式
-  if (showHours) {
-    // 显示为 `00:00:00`
-    return '${temp.inHours.toString().padLeft(2, '0')}:${(temp.inMinutes % 60).toString().padLeft(2, '0')}:${(temp.inSeconds % 60).toString().padLeft(2, '0')}';
-  } else {
-    // 显示为 `00:00`
-    return '${(temp.inMinutes % 60).toString().padLeft(2, '0')}:${(temp.inSeconds % 60).toString().padLeft(2, '0')}';
-  }
-}
-
 /// ================================================ 刷新控件配置
 
 /// 刷新头部文案
@@ -384,8 +352,8 @@ extension StringExtension on String {
 String generateFileName(String filePath, String dir) {
   // 生成16位随机数
   String randomString = generateRandomString(16);
-  // 获取当前时间戳（使用 Jiffy）
-  String timestamp = Jiffy.now().format(pattern: 'yyyyMMddHHmmss');
+  // 获取当前时间戳
+  String timestamp = date.getCurrentTime(format: 'yyyyMMddHHmmss');
   // 合并随机数和时间戳，生成 MD5
   String toHash = randomString + timestamp;
   // 使用 MD5 对字符串进行加密

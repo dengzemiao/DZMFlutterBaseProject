@@ -70,7 +70,7 @@ class _CountdownState extends State<Countdown> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      _remainingTime.isNegative ? '00:00' : formatDuration(_remainingTime, showHours: _remainingTime.inHours > 0),
+      _remainingTime.isNegative ? '00:00' : date.formatDuration(_remainingTime, showHours: _remainingTime.inHours > 0),
       style: widget.textStyle,
     );
   }
