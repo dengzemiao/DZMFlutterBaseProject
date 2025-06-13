@@ -76,8 +76,8 @@ String defaultAvatarUrl = 'assets/images/image_avatar.png';
 void deepLinksHandle(Uri? link) {
   // 有值
   if (link != null) {
-    // 进日志页面，dengzemiao:///log
-    if (link.path == appRoutes.logvc) {
+    // 进日志页面，dengzemiao:///log || snapdrama:///?openlog=true
+    if (link.path == appRoutes.logvc || link.queryParameters.containsKey('openlog')) {
       // 打开/关闭日志
       logs.enable(true);
       // 延迟 1 秒跳转页面
