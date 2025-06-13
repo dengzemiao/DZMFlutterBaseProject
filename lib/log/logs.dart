@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../model/account.dart';
 import '../utils/storage.dart';
@@ -82,8 +83,7 @@ class Logs {
   /// 同步状态
   Future<bool> sync() async {
     // 获取日志开启状态
-    _isEnable = await Storage().getBoolPro('LogsEnable', defaultValue: true);
-    // _isEnable = await Storage().getBoolPro('LogsEnable', defaultValue: false);
+    _isEnable = await Storage().getBoolPro('LogsEnable', defaultValue: kDebugMode);
     // 返回
     return _isEnable;
   }
