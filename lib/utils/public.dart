@@ -22,6 +22,7 @@ import './navigator.dart';
 import './hud.dart';
 import './payment.dart';
 import './date.dart';
+import './device.dart';
 import '../log/logs.dart';
 import '../api/request.dart';
 
@@ -51,6 +52,8 @@ final appRequest = AppRequest();
 final storage = Storage();
 /// 时间工具
 final date = Date();
+/// 设备工具
+final device = Device();
 
 /// 导航条高度
 final navBarHeight = adaptSize(54.0);

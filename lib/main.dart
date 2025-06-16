@@ -185,6 +185,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+
+    // 初始化设备信息
+    // device.init(context);
+
     // 个人觉得 ScreenUtilInit 这个库可使用可不使用，不使用也没什么问题
     // 个人倾向于不使用，这样横屏或者ipad上好适配，如果需要使用推荐宽高都采用 .w 的方式，并打开注释
     // return ScreenUtilInit(
