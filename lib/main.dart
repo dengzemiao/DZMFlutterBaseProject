@@ -186,8 +186,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
 
-    // 初始化设备信息
-    // device.init(context);
+    // 更新设备信息
+    // device.update(context);
 
     // 个人觉得 ScreenUtilInit 这个库可使用可不使用，不使用也没什么问题
     // 个人倾向于不使用，这样横屏或者ipad上好适配，如果需要使用推荐宽高都采用 .w 的方式，并打开注释
@@ -210,7 +210,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     //   },
     //   child: buildMaterialApp(context);
     // );
+
+    // 屏幕方向回调
+    // return OrientationBuilder(
+    //   builder: (context, orientation) {
+    //     // 更新设备信息
+    //     device.update(context);
+    //     // 获取屏幕尺寸
+    //     final screenSize = MediaQuery.of(context).size;
+    //     // 平板模式
+    //     if (device.isTablet) {
+    //       // 平板模式
+    //       return Container(
+    //         color: const Color(0xFFE6E6E6),
+    //         child: Center(
+    //           child: SizedBox(
+    //             width: screenSize.width,
+    //             height: screenSize.height,
+    //             child: buildMaterialApp(context),
+    //           ),
+    //         ),
+    //       );
+    //     } else {
+    //       // 手机模式
+    //       return buildMaterialApp(context);
+    //     }
+    //   },
+    // );
     
+    // 构建
     return buildMaterialApp(context);
   }
 

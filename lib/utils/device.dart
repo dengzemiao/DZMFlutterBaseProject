@@ -18,7 +18,7 @@ class Device {
   bool get isPhone => _isPhone;
 
   // 初始化方法（在APP启动时调用）
-  void init(BuildContext context) {
+  void _init(BuildContext context) {
     // 是否为平板
     final shortestSide = MediaQuery.of(context).size.shortestSide;
     // 是否为平板
@@ -29,6 +29,6 @@ class Device {
 
   // 动态更新方法（可选，用于响应屏幕旋转）
   void update(BuildContext context) {
-    init(context);
+    _init(context);
   }
 }
