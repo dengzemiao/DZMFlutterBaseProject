@@ -15,8 +15,13 @@ void main() {
   // 确保绑定已初始化
   WidgetsFlutterBinding.ensureInitialized(); 
 
-  // 锁定竖屏
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // 支持的方向
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    // DeviceOrientation.portraitDown,
+    // DeviceOrientation.landscapeLeft,
+    // DeviceOrientation.landscapeRight,
+  ]);
 
   // 不登录也能使用 App 走这种方式
   // runApp(const MyApp());
