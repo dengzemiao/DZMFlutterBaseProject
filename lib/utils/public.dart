@@ -142,15 +142,23 @@ double getBottomSafeAreaHeight(BuildContext context) {
   return MediaQuery.of(context).padding.bottom;
 }
 /// 获取屏幕可用高度（是否有导航栏、底部TabBar）
-double getAvailableScreenHeight(BuildContext context, {bool hasAppBar = true, bool hasBottomTabBar = true}) {
+double getAvailableScreenHeight(
+  BuildContext context, 
+  {
+    bool hasStatusBar = true,
+    bool hasAppBar = true,
+    bool hasBottomTabBar = true,
+    bool hasBottomSafeArea = true,
+  }
+) {
   final mediaQuery = MediaQuery.of(context);
   final screenHeight = mediaQuery.size.height;
   // 顶部高度（状态栏 + AppBar）
-  final statusBarHeight = mediaQuery.padding.top;
-  final appBarHeight = hasAppBar ? (Scaffold.of(context).appBarMaxHeight ?? kToolbarHeight) : 0;
+  final statusBarHeight = hasStatusBar ? mediaQuery.padding.top : 0;
+  final appBarHeight = hasAppBar ? kToolbarHeight : 0;
   final topTotalHeight = statusBarHeight + appBarHeight;
   // 底部高度（安全区域 + TabBar）
-  final bottomSafeArea = mediaQuery.padding.bottom;
+  final bottomSafeArea = hasBottomSafeArea ? mediaQuery.padding.bottom : 0;
   final bottomTabBarHeight = hasBottomTabBar ? kBottomNavigationBarHeight : 0;
   final bottomTotalHeight = bottomSafeArea + bottomTabBarHeight;
   // 可用高度
