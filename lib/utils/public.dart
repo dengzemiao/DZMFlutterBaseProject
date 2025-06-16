@@ -138,6 +138,21 @@ double getStatusBarHeight(BuildContext context) {
 double getBottomSafeAreaHeight(BuildContext context) {
   return MediaQuery.of(context).padding.bottom;
 }
+/// 获取屏幕可用高度（是否有导航栏、底部TabBar）
+double getAvailableScreenHeight(BuildContext context, {bool hasAppBar = true, bool hasBottomTabBar = true}) {
+  final mediaQuery = MediaQuery.of(context);
+  final screenHeight = mediaQuery.size.height;
+  // 顶部高度（状态栏 + AppBar）
+  final statusBarHeight = mediaQuery.padding.top;
+  final appBarHeight = hasAppBar ? (Scaffold.of(context).appBarMaxHeight ?? kToolbarHeight) : 0;
+  final topTotalHeight = statusBarHeight + appBarHeight;
+  // 底部高度（安全区域 + TabBar）
+  final bottomSafeArea = mediaQuery.padding.bottom;
+  final bottomTabBarHeight = hasBottomTabBar ? kBottomNavigationBarHeight : 0;
+  final bottomTotalHeight = bottomSafeArea + bottomTabBarHeight;
+  // 可用高度
+  return screenHeight - topTotalHeight - bottomTotalHeight;
+}
 
 /// 设置系统状态栏样式
 void setSystemStatusBarStyle ({
