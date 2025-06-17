@@ -26,7 +26,7 @@
     $ openssl x509 -in public_key.pem -noout -modulus
     ```
 
-    3、提取 md5
+    3、提取 MD5
 
     ```sh
     $ openssl x509 -in public_key.pem -noout -fingerprint -md5
@@ -35,7 +35,7 @@
     $ openssl x509 -in public_key.pem -noout -fingerprint -md5 | tr -d ':'
     ```
 
-    4、提取 sha1
+    4、提取 SHA1
 
     ```sh
     $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha1
@@ -52,7 +52,7 @@
     
 包名：
 安卓 - 公钥：
-安卓 - md5：
+安卓 - MD5：
 iOS - 公钥：
-iOS - sha1：
+iOS - SHA1：
 iOS - .p12：
