@@ -1,7 +1,6 @@
-import 'package:base_project/utils/public.dart';
 import 'package:flutter/material.dart';
+import 'package:base_project/utils/public.dart';
 import './image_view.dart';
-// import 'package:base_project/utils/public.dart';
 
 @immutable
 class EmptyView extends StatefulWidget {
