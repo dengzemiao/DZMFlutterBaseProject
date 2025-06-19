@@ -325,13 +325,21 @@ final ClassicFooter refreshFooter = getRefreshFooter();
 /// 刷新尾部文案
 ClassicFooter getRefreshFooter ({
   /// Indicator 颜色
-  Color indicatorColor = primaryColor
+  Color indicatorColor = primaryColor,
+  /// 上拉加载更多
+  String? idleText,
+  /// 松开加载更多
+  String? canLoadingText,
+  /// 正在加载更多...
+  String? loadingText,
+  /// 没有更多数据
+  String? noDataText,
 }) {
   return ClassicFooter(
-    idleText: "上拉加载更多",
-    canLoadingText: '松开加载更多',
-    loadingText: "正在加载更多...",
-    noDataText: '没有更多数据',
+    idleText: idleText ?? '上拉加载更多',
+    canLoadingText: canLoadingText ?? '松开加载更多',
+    loadingText: loadingText ?? '正在加载更多...',
+    noDataText: noDataText ?? '没有更多数据',
     completeDuration: const Duration(milliseconds: 100),
     loadingIcon: SizedBox(
       width: 24,
