@@ -116,7 +116,7 @@ class BaseRefreshControllerState extends BaseStatefulControllerState {
     // 下拉刷新
     if (!isMore) {
       // 关闭上拉加载
-      setState(() { enablePullUp = false; });
+      closePullUp();
     }
     // 模拟网络请求
     await Future.delayed(const Duration(seconds: 1));
@@ -133,21 +133,40 @@ class BaseRefreshControllerState extends BaseStatefulControllerState {
         } else {
           // 初始化列表
           dataSource = List.generate(20, (index) => "Refreshed Item $index");
-          // 是否显示空数据（在开启空数据展示的情况下可以避免初始化就显示，其他情况可以任意使用 isLoading）
-          if (isShowEmpty) {
-            // 没数据则不打开上拉加载，有数据则打开
-            enablePullUp = dataSource.isNotEmpty;
-            // 关闭加载
-            isLoading = false;
-          } else {
-            // 打开上拉加载
-            enablePullUp = true;
-          }
+          // 根据情况打开上拉加载
+          openPullUp();
         }
       });
       // 结束刷新 - 合并写
       endRefresh(isHasData: dataSource.length < 50);
     }
+  }
+
+  /// 打开上拉加载
+  void openPullUp () {
+    Future.microtask(() {
+      setState(() {
+        // 是否显示空数据（在开启空数据展示的情况下可以避免初始化就显示，其他情况可以任意使用 isLoading）
+        if (isShowEmpty) {
+          // 没数据则不打开上拉加载，有数据则打开
+          enablePullUp = dataSource.isNotEmpty;
+          // 关闭加载
+          isLoading = false;
+        } else {
+          // 打开上拉加载
+          enablePullUp = true;
+        }
+      });
+    });
+  }
+
+  /// 关闭上拉加载
+  void closePullUp () {
+    Future.microtask(() {
+      setState(() {
+        enablePullUp = false;
+      });
+    });
   }
 
   /// 结束刷新 isPull: 是否下拉 isHasData: 有更多数据
