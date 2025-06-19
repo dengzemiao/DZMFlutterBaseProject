@@ -143,15 +143,20 @@ class BaseRefreshControllerState extends BaseStatefulControllerState {
   }
 
   /// 打开上拉加载
-  void openPullUp () {
+  void openPullUp ({bool isAuto = true}) {
     Future.microtask(() {
       setState(() {
-        // 是否显示空数据（在开启空数据展示的情况下可以避免初始化就显示，其他情况可以任意使用 isLoading）
-        if (isShowEmpty) {
-          // 没数据则不打开上拉加载，有数据则打开
-          enablePullUp = dataSource.isNotEmpty;
-          // 关闭加载
-          isLoading = false;
+        if (isAuto) {
+          // 是否显示空数据（在开启空数据展示的情况下可以避免初始化就显示，其他情况可以任意使用 isLoading）
+          if (isShowEmpty) {
+            // 没数据则不打开上拉加载，有数据则打开
+            enablePullUp = dataSource.isNotEmpty;
+            // 关闭加载
+            isLoading = false;
+          } else {
+            // 打开上拉加载
+            enablePullUp = true;
+          }
         } else {
           // 打开上拉加载
           enablePullUp = true;
