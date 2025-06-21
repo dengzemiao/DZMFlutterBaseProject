@@ -15,13 +15,23 @@ void main() {
   // 确保绑定已初始化
   WidgetsFlutterBinding.ensureInitialized(); 
 
-  // 支持的方向
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    // DeviceOrientation.portraitDown,
-    // DeviceOrientation.landscapeLeft,
-    // DeviceOrientation.landscapeRight,
-  ]);
+  // 初始化设备工具类
+  device.init();
+  // 根据设备类型设置屏幕方向
+  if (device.isTablet) {
+    // 平板模式：支持所有方向
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  } else {
+    // 手机模式：只支持竖屏
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
 
   // 不登录也能使用 App 走这种方式
   // runApp(const MyApp());
@@ -186,9 +196,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
 
-    // 更新设备信息
-    // device.update(context);
-
     // 个人觉得 ScreenUtilInit 这个库可使用可不使用，不使用也没什么问题
     // 个人倾向于不使用，这样横屏或者ipad上好适配，如果需要使用推荐宽高都采用 .w 的方式，并打开注释
     // return ScreenUtilInit(
@@ -214,8 +221,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     // 屏幕方向回调
     // return OrientationBuilder(
     //   builder: (context, orientation) {
-    //     // 更新设备信息
-    //     device.update(context);
     //     // 获取屏幕尺寸
     //     final screenSize = MediaQuery.of(context).size;
     //     // 平板模式
