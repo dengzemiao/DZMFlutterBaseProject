@@ -12,6 +12,8 @@ class CustomAlert {
     bool? barrierDismissible,
     /// 弹窗内容
     Widget? child,
+    /// 关闭回调
+    VoidCallback? onClose,
   }) {
     return showDialog(
       context: context,
@@ -25,11 +27,16 @@ class CustomAlert {
             // 弹框的“外部”空隙，避免弹出框紧贴屏幕边缘，不设置有默认值，如果想弹窗宽点可以设置
             // insetPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
-            child: child
+            child: child,
           )
         );
       },
-    );
+    ).whenComplete(() {
+      // 监听弹窗关闭事件
+      if (onClose != null) {
+        onClose();
+      }
+    });
   }
 
   /// 显示弹窗
@@ -63,7 +70,9 @@ class CustomAlert {
     /// 回调
     ValueChanged<bool>? onConfirm,
     /// 回调，自行实现隐藏遮罩
-    ValueChanged<bool>? onConfirmPro
+    ValueChanged<bool>? onConfirmPro,
+    /// 关闭回调
+    VoidCallback? onClose,
   }) {
     void onPressed (bool value) {
       if (onConfirm != null) {
@@ -77,12 +86,16 @@ class CustomAlert {
         });
       } else {
         Navigator.pop(context);
+        if (onClose != null) {
+          onClose();
+        }
       }
     }
 
     return showWidget(
       context: context,
       barrierDismissible: barrierDismissible,
+      onClose: onClose,
       child: InkWell(
         onTap: () => barrierDismissible == true ? Navigator.pop(context) : null,
         child: Column(
@@ -188,12 +201,15 @@ class CustomBottomSheet {
     /// 背景颜色
     Color? backgroundColor,
     /// 最大高度
-    double? maxHeight
+    double? maxHeight,
+    /// 关闭回调
+    VoidCallback? onClose,
   }) {
     return CustomBottomSheet.showWidget(
       context: context,
       title: title,
       backgroundColor: backgroundColor,
+      onClose: onClose,
       child: ConstrainedBox(
         constraints: BoxConstraints(
           // 设置最大高度
@@ -220,10 +236,13 @@ class CustomBottomSheet {
     Widget? child,
     /// 背景颜色
     Color? backgroundColor,
+    /// 关闭回调
+    VoidCallback? onClose,
   }) {
     return CustomBottomSheet.show(
       context: context,
       backgroundColor: backgroundColor,
+      onClose: onClose,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -263,7 +282,9 @@ class CustomBottomSheet {
     /// 回调
     CustomBottomSheetCallback? onConfirm,
     /// 回调，自行实现隐藏遮罩
-    CustomBottomSheetCallback? onConfirmPro
+    CustomBottomSheetCallback? onConfirmPro,
+    /// 关闭回调
+    VoidCallback? onClose
   }) {
     void onTopItem (int index, String item) {
       if (onConfirm != null) {
@@ -277,6 +298,9 @@ class CustomBottomSheet {
         });
       } else {
         Navigator.pop(context);
+        if (onClose != null) {
+          onClose();
+        }
       }
     }
     return showModalBottomSheet(
@@ -336,7 +360,12 @@ class CustomBottomSheet {
                   width: double.infinity,
                   height: adaptSize(56),
                   child: InkWell(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      Navigator.pop(context);
+                      if (onClose != null) {
+                        onClose();
+                      }
+                    },
                     child: Center(
                       child: Text('取消', style: TextStyle(color: const Color(0xFF000000), fontSize: adaptFontSize(14))),
                     )
@@ -349,6 +378,11 @@ class CustomBottomSheet {
           )
         );
       },
-    );
+    ).whenComplete(() {
+      // 监听弹窗关闭事件
+      if (onClose != null) {
+        onClose();
+      }
+    });
   }
 }
