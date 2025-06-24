@@ -1,4 +1,7 @@
-source 'https://github.com/CocoaPods/Specs.git'
+# CocoaPods CDN 源（推荐）
+source 'https://cdn.cocoapods.org/'
+# # 备用源
+# source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment this line to define a global platform for your project
 # platform :ios, '12.0'
