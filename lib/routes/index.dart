@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../pages/tabbar/index.dart';
 import '../pages/public/webview.dart';
@@ -17,13 +18,16 @@ class AppRoutes {
 
   /// 日志页面
   String get logvc => '/log';
+  Widget get logPage => const LogController();
 
   /// 入口页
   String get initialRoute => tabbar;
   /// 底部导航
   String get tabbar => '/pages/tabbar';
+  Widget get tabbarPage => const TabbarController();
   /// 内部浏览器
   String get webview => '/pages/webview';
+  Widget get webViewPage => const WebviewController();
   /// 未知
   String get notFound => '/pages/not_found';
 
@@ -33,8 +37,8 @@ class AppRoutes {
 
     /// ================================ 公共 ================================
     
-    GetPage(name: logvc, page: () => const LogController()),
-    GetPage(name: tabbar, page: () => const TabbarController()),
-    GetPage(name: webview, page: () => const WebviewController()),
+    GetPage(name: logvc, page: () => logPage),
+    GetPage(name: tabbar, page: () => tabbarPage),
+    GetPage(name: webview, page: () => webViewPage),
   ];
 }
