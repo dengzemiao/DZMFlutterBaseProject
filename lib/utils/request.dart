@@ -135,9 +135,15 @@ class HttpManager {
         responseData = jsonEncodeCustom(responseData);
       }
       // 同步参数
-      httpResponse.code = responseData?['code'] ?? dioResponse.statusCode;
-      httpResponse.data = responseData?['data'];
-      httpResponse.msg = responseData?['msg'] ?? dioResponse.statusMessage;
+      try {
+        httpResponse.code = responseData?['code'] ?? dioResponse.statusCode;
+        httpResponse.data = responseData?['data'];
+        httpResponse.msg = responseData?['message'] ?? dioResponse.statusMessage;
+      } catch (e) {
+        httpResponse.code = -1;
+        httpResponse.data = responseData;
+        httpResponse.msg = '未知错误';
+      }
       // 错误码过滤
       if (filterErrorCodes != null && filterErrorCodes.contains(httpResponse.code)) {
         // 不做处理
