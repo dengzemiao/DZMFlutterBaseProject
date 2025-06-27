@@ -91,7 +91,12 @@ class WebviewControllerState extends State<WebviewController> {
         ..loadRequest(Uri.parse(_url));
         // 设置背景颜色
         _webViewController.setBackgroundColor(backgroundColor ?? Colors.white);
-    } catch (_) {}
+    } catch (e, stackTrace) {
+      logs.add({logs.keyTitle: 'Webview - 初始化失败', logs.keySuccess: false, logs.keyData: {
+        'error': e.toString(),
+        'stackTrace': stackTrace.toString(),
+      }});
+    }
   }
 
   /// 获取网页标题
@@ -100,8 +105,11 @@ class WebviewControllerState extends State<WebviewController> {
       try {
         final title = await _webViewController.runJavaScriptReturningResult('document.title');
         setState(() { _title = title as String; });
-      } catch (e) {
-        log('获取网页标题失败: $e');
+      } catch (e, stackTrace) {
+        logs.add({logs.keyTitle: 'Webview - 获取网页标题失败', logs.keySuccess: false, logs.keyData: {
+          'error': e.toString(),
+          'stackTrace': stackTrace.toString(),
+        }});
       }
     }
   }

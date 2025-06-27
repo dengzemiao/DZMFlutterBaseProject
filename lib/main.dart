@@ -165,8 +165,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         // 处理链接
         deepLinksHandle(link);
       });
-    } catch (e) {
-      logs.add({logs.keyTitle: 'DeepLinks - 报错', logs.keySuccess: false, logs.keyData: e.toString()});
+    } catch (e, stackTrace) {
+      logs.add({logs.keyTitle: 'DeepLinks - 报错', logs.keySuccess: false, logs.keyData: {
+        'error': e.toString(),
+        'stackTrace': stackTrace.toString(),
+      }});
     }
   }
 
