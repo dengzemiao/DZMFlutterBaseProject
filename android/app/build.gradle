@@ -66,6 +66,14 @@ android {
             // 启用资源压缩
             shrinkResources false
         }
+        debug {
+            // 测试环境也使用正式证书，有些第三方平台对证书有要求方便一个证书完成测试，不需要可以注释，会使用默认测试证书
+            signingConfig = signingConfigs.release
+            // 启用代码混淆（ProGuard）
+            minifyEnabled false
+            // 启用资源压缩
+            shrinkResources false
+        }
     }
 }
 
