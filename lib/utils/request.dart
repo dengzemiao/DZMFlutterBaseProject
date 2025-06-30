@@ -139,7 +139,23 @@ class HttpManager {
         httpResponse.code = responseData?['code'] ?? dioResponse.statusCode;
         httpResponse.data = responseData?['data'];
         httpResponse.msg = responseData?['msg'] ?? responseData?['message'] ?? dioResponse.statusMessage;
-      } catch (e) {
+      } catch (e, stackTrace) {
+        // 记录日志
+        if (logs.isEnable) {
+          logs.add({
+            logs.keyTitle: '${method.value} $url',
+            logs.keySuccess: false,
+            'parameters': method == HttpMethod.get ? queryParameters : (method == HttpMethod.postFormData ? parameters.toString() : data),
+            'headers': {...headers ?? {}, ..._dio.options.headers},
+            logs.keyData: {
+              'dioResponse.data': dioResponse.data,
+              'responseData': responseData,
+              'error': e.toString(),
+              'stackTrace': stackTrace.toString(),
+            }
+          });
+        }
+        // 模拟错误
         httpResponse.code = -1;
         httpResponse.data = responseData;
         httpResponse.msg = e.toString();
