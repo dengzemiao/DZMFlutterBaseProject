@@ -11,8 +11,8 @@ flutter clean
 echo "${GREEN_BG}============================== Flutter clean 完成${RESET}"
 
 # Flutter pub 缓存修复（可选，日常清理可不执行，耗时较长）
-flutter pub cache repair
-echo "${GREEN_BG}============================== Flutter pub cache repair 完成${RESET}"
+# flutter pub cache repair
+# echo "${GREEN_BG}============================== Flutter pub cache repair 完成${RESET}"
 
 # iOS 原生依赖清理
 rm -rf ios/Pods
