@@ -10,7 +10,7 @@ echo "${GREEN_BG}============================== 开始 Flutter + iOS + Android �
 flutter clean
 echo "${GREEN_BG}============================== Flutter clean 完成${RESET}"
 
-# Flutter pub 缓存修复（可选）
+# Flutter pub 缓存修复（可选，日常清理可不执行，耗时较长）
 flutter pub cache repair
 echo "${GREEN_BG}============================== Flutter pub cache repair 完成${RESET}"
 
@@ -19,9 +19,9 @@ rm -rf ios/Pods
 rm -f ios/Podfile.lock
 echo "${GREEN_BG}============================== iOS Pods 和 Podfile.lock 删除完成${RESET}"
 
-# CocoaPods 缓存清理（可选）
-pod cache clean --all
-echo "${GREEN_BG}============================== CocoaPods 缓存清理完成${RESET}"
+# CocoaPods 缓存清理（可选，日常清理可不执行）
+# pod cache clean --all
+# echo "${GREEN_BG}============================== CocoaPods 缓存清理完成${RESET}"
 
 # Android 原生构建缓存清理
 cd android
