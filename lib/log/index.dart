@@ -184,7 +184,7 @@ class LogControllerState extends BaseScrollControllerState {
                             border: Border.all(color: Colors.white, width: 1.0),
                             borderRadius: const BorderRadius.all(Radius.circular(4))
                           ),
-                          child: const Center(child: Text('输出设备、应用信息', style: TextStyle(color: Colors.white)))
+                          child: const Center(child: Text('设备、应用、环境信息', style: TextStyle(color: Colors.white)))
                         ),
                       )
                     ),
@@ -206,7 +206,7 @@ class LogControllerState extends BaseScrollControllerState {
                             border: Border.all(color: Colors.white, width: 1.0),
                             borderRadius: const BorderRadius.all(Radius.circular(4))
                           ),
-                          child: const Center(child: Text('输出用户信息', style: TextStyle(color: Colors.white)))
+                          child: const Center(child: Text('用户信息', style: TextStyle(color: Colors.white)))
                         ),
                       )
                     )
