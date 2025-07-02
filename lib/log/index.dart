@@ -50,15 +50,12 @@ class LogControllerState extends BaseScrollControllerState {
   /// 设备、应用信息
   void onAppInfo () async {
     try {
-      // 获取运行模式
+      // 获取设备信息
+      final deviceInfo = await DeviceInfoPlugin().deviceInfo;
       setState(() {
         logs.add({
-          logs.keyTitle: '运行模式',
-          logs.keyData: {
-            'debug': kDebugMode,
-            'release': kReleaseMode,
-            'profile': kProfileMode,
-          }
+          logs.keyTitle: '设备信息',
+          logs.keyData: deviceInfo.toString()
         });
       });
       // 获取应用信息
@@ -69,12 +66,21 @@ class LogControllerState extends BaseScrollControllerState {
           logs.keyData: info.toString()
         });
       });
-      // 获取设备信息
-      final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+      // 其他信息
       setState(() {
+        // 获取运行模式
         logs.add({
-          logs.keyTitle: '设备信息',
-          logs.keyData: deviceInfo.toString()
+          logs.keyTitle: '运行模式',
+          logs.keyData: {
+            'debug': kDebugMode,
+            'release': kReleaseMode,
+            'profile': kProfileMode,
+          }
+        });
+        // 添加当前环境
+        logs.add({
+          logs.keyTitle: '当前环境：${isDebugMode! ? '测试' : '正式'}',
+          logs.keyData: {'isDebugMode': isDebugMode}
         });
       });
     } catch (_) {}
