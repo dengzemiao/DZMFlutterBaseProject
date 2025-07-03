@@ -31,6 +31,21 @@ class CaseModel {
     return model;
   }
 
+  /// 更新数据
+  /// [force] 是否强制覆盖（即使为null也覆盖），默认为false，仅当 json 中有对应 key 时才覆盖
+  void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
+    if (json.isNotEmpty) {
+      id = force ? json['id'] : (json.containsKey('id') ? json['id'] : id);
+    }
+  }
+
+  /// 更新数据
+  /// [force] 是否强制覆盖（即使为null也覆盖），默认为false
+  void updateFromRawJson(String? str, {bool force = false}) {
+    final jsonData = json.decode(str ?? '{}');
+    updateFromJson(jsonData, force: force);
+  }
+
   /// 转换为 JSON
   Map<String, dynamic> toJson() => {
     "id": id,

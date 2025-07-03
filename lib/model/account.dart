@@ -19,33 +19,7 @@ class AccountModel {
   factory AccountModel() {
     return _instance;
   }
-
-  // 更新单例数据
-  void updateFromRawJson(String str) {
-    final jsonData = json.decode(str);
-    _instance._updateFromJson(jsonData);
-  }
-
-  void updateFromJson(Map<String, dynamic> json) {
-    _instance._updateFromJson(json);
-  }
-
-  // 内部更新数据方法
-  void _updateFromJson(Map<String, dynamic> json) {
-    accessToken = json["access_token"];
-    effectiveSeconds = json["effective_seconds"];
-    expiredAt = json["expired_at"];
-    userInfo = json["user_info"] == null ? null : UserInfo.fromJson(json["user_info"]);
-  }
-
-  // 清空单例的数据
-  void clear() {
-    accessToken = null;
-    effectiveSeconds = null;
-    expiredAt = null;
-    userInfo = null;
-  }
-
+  
   AccountModel copyWith({
     String? accessToken,
     int? effectiveSeconds,
@@ -58,11 +32,11 @@ class AccountModel {
       ..expiredAt = expiredAt ?? this.expiredAt
       ..userInfo = userInfo ?? this.userInfo;
 
-  factory AccountModel.fromRawJson(String str) => AccountModel()..updateFromRawJson(str);
+  factory AccountModel.fromRawJson(String str) => AccountModel()..updateFromRawJson(str, force: true);
+
+  factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel()..updateFromJson(json, force: true);
 
   String toRawJson() => json.encode(toJson());
-
-  factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel()..updateFromJson(json);
 
   Map<String, dynamic> toJson() => {
     "access_token": accessToken,
@@ -70,4 +44,30 @@ class AccountModel {
     "expired_at": expiredAt,
     "user_info": userInfo?.toJson(),
   };
+
+  /// 更新数据
+  /// [force] 是否强制覆盖（即使为null也覆盖），默认为false，仅当 json 中有对应 key 时才覆盖
+  void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
+    if (json.isNotEmpty) {
+      accessToken = force ? json['access_token'] : (json.containsKey('access_token') ? json['access_token'] : accessToken);
+      effectiveSeconds = force ? json['effective_seconds'] : (json.containsKey('effective_seconds') ? json['effective_seconds'] : effectiveSeconds);
+      expiredAt = force ? json['expired_at'] : (json.containsKey('expired_at') ? json['expired_at'] : expiredAt);
+      userInfo = force ? json['user_info'] : (json.containsKey('user_info') ? json['user_info'] : userInfo);
+    }
+  }
+
+  /// 更新数据
+  /// [force] 是否强制覆盖（即使为null也覆盖），默认为false
+  void updateFromRawJson(String? str, {bool force = false}) {
+    final jsonData = json.decode(str ?? '{}');
+    updateFromJson(jsonData, force: force);
+  }
+
+  // 清空单例的数据
+  void clear() {
+    accessToken = null;
+    effectiveSeconds = null;
+    expiredAt = null;
+    userInfo = null;
+  }
 }
