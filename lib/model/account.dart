@@ -32,9 +32,9 @@ class AccountModel {
       ..expiredAt = expiredAt ?? this.expiredAt
       ..userInfo = userInfo ?? this.userInfo;
 
-  factory AccountModel.fromRawJson(String str) => AccountModel()..updateFromRawJson(str, force: true);
+  factory AccountModel.fromRawJson(String str) => AccountModel()..updateFromRawJson(str);
 
-  factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel()..updateFromJson(json, force: true);
+  factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel()..updateFromJson(json);
 
   String toRawJson() => json.encode(toJson());
 
