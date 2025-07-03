@@ -39,7 +39,7 @@ class CaseModel {
   /// 更新数据
   /// [force] 是否强制覆盖（即使为null也覆盖），默认为false，仅当 json 中有对应 key 时才覆盖
   void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
-    if (json.isNotEmpty) {
+    if (json.isNotEmpty || force) {
       id = force ? json['id'] : (json.containsKey('id') ? json['id'] : id);
     }
   }
