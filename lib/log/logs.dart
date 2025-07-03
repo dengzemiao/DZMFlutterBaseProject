@@ -56,11 +56,11 @@ class Logs {
   /// 切换日志开关埋点位置的计数器
   int enableCounter = 0;
   /// 需要除非计数器多少次才切换日志开关
-  int enableCounterNumber = 10;
+  int enableCounterNumber = 5;
   /// 切换日志开关次数计数器
   int enableDevCounter = 0;
   /// 需要切换多少下开关才能切换接口环境
-  int enableDevCounterNumber = 10;
+  int enableDevCounterNumber = 5;
   /// 日志列表
   final List<Map<String, dynamic>> _logs = [];
   /// 获取日志列表
