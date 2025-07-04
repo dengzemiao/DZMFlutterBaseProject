@@ -70,6 +70,8 @@ const String agrServerUrl = 'https://edu.shieye-property.com/agr-server.html';
 // kReleaseMode: 为 true 时表示处于 发布模式。
 // kProfileMode: 为 true 时表示处于 性能分析模式。
 bool? isDebugMode;
+/// 包信息
+PackageInfo? packageInfo;
 /// 默认头像
 String defaultAvatarUrl = 'assets/images/image_avatar.png';
 
@@ -96,11 +98,9 @@ void deepLinksHandle(Uri? link) {
 void initAppUpdate(BuildContext context) async {
   // 检查是否需要更新
   try {
-    // 获取包信息
-    final packageInfo = await PackageInfo.fromPlatform();
     // 发起网络请求
     final params = {
-      'current_version': packageInfo.version,
+      'current_version': packageInfo?.version ?? '1.0.0',
       // 1 Android, 2 iOS
       'operating_system': Platform.isAndroid ? 1 : 2,
     };
@@ -111,7 +111,7 @@ void initAppUpdate(BuildContext context) async {
       // 检查更新
       final appUpdateModel = AppUpdateModel.fromJson(response.data['app_version']);
       // 版本比较
-      if (Version.parse(appUpdateModel.latestVersion ?? '1.0.0') > Version.parse(packageInfo.version)) {
+      if (Version.parse(appUpdateModel.latestVersion ?? '1.0.0') > Version.parse(packageInfo?.version ?? '1.0.0')) {
         // 弹出更新
         if (context.mounted) {
           AppUpdate.show(

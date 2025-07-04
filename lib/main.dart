@@ -3,6 +3,7 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:base_project/utils/public.dart';
@@ -45,11 +46,14 @@ void main() {
         storage.getStringPro(PublicKey.account.value, defaultValue: '{}'),
         // 获取是否是调试模式
         storage.getBool(PublicKey.debugMode.value, defaultValue: kDebugMode),
+        // 获取包信息
+        PackageInfo.fromPlatform(),
         // 获取日志状态
         logs.sync(),
       ]),
       // 构建
       builder: (context, snapshot) {
+        // 等待数据
         if (snapshot.connectionState == ConnectionState.waiting) {
           // 在加载过程中显示一个进度条
           return const MaterialApp(home: Center(child: CircularProgressIndicator()));
@@ -58,6 +62,8 @@ void main() {
         accountModel.updateFromRawJson(snapshot.data[0]);
         // 获取是否是调试模式
         isDebugMode ??= snapshot.data[1];
+        // 获取包信息
+        packageInfo ??= snapshot.data[2];
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
