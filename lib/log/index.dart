@@ -216,6 +216,36 @@ class LogControllerState extends BaseScrollControllerState {
                 const SizedBox(height: 14),
                 Row(
                   children: [
+                    // 打开/关闭 loading
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            // 切换状态
+                            hud.isAllowShowLoading = !hud.isAllowShowLoading;
+                            // 添加日志
+                            logs.add({
+                              logs.keyTitle: '${hud.isAllowShowLoading ? '开启' : '关闭'}展示 loading',
+                              logs.keyData: {'hud.isAllowShowLoading': hud.isAllowShowLoading}
+                            });
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white, width: 1.0),
+                            borderRadius: const BorderRadius.all(Radius.circular(4))
+                          ),
+                          child: Center(child: Text('${hud.isAllowShowLoading ? '关闭' : '开启'}展示 loading', style: const TextStyle(color: Colors.white)))
+                        ),
+                      )
+                    ),
+                  ],
+                ),
+                // 一行
+                const SizedBox(height: 14),
+                Row(
+                  children: [
                     // 开关日志
                     Expanded(
                       child: InkWell(

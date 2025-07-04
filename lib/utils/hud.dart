@@ -13,6 +13,10 @@ class Hud {
   static final Hud _instance = Hud._internal();
   // 静态方法获取单例实例
   factory Hud() => _instance;
+
+  /// 允许展示 loading
+  bool isAllowShowLoading = true;
+
   // 私有构造函数，确保只能通过工厂方法获取实例
   Hud._internal() {
     // 自定义加载样式
@@ -43,6 +47,11 @@ class Hud {
     bool? dismissOnTap,
     bool dismissTouch = true,
   }) {
+    // 为了调试使用，是否允许展示 loading
+    if (!isAllowShowLoading) {
+      return Future.value(null);
+    }
+    // 展示 loading
     return EasyLoading.show(
       status: status,
       indicator: indicator,
