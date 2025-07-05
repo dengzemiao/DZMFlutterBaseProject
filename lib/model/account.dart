@@ -49,10 +49,10 @@ class AccountModel {
   /// [force] 是否强制覆盖（即使为null也覆盖），默认为false，仅当 json 中有对应 key 时才覆盖
   void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
     if (json.isNotEmpty || force) {
-      accessToken = force ? json['access_token'] : (json.containsKey('access_token') ? json['access_token'] : accessToken);
-      effectiveSeconds = force ? json['effective_seconds'] : (json.containsKey('effective_seconds') ? json['effective_seconds'] : effectiveSeconds);
-      expiredAt = force ? json['expired_at'] : (json.containsKey('expired_at') ? json['expired_at'] : expiredAt);
-      userInfo = force ? json['user_info'] : (json.containsKey('user_info') ? json['user_info'] : userInfo);
+      accessToken = force || json.containsKey('access_token') ? json['access_token'] : accessToken;
+      effectiveSeconds = force || json.containsKey('effective_seconds') ? json['effective_seconds'] : effectiveSeconds;
+      expiredAt = force || json.containsKey('expired_at') ? json['expired_at'] : expiredAt;
+      userInfo = force || json.containsKey('user_info') ? (json['user_info'] == null ? null : UserInfo.fromJson(json['user_info'])) : userInfo;
     }
   }
 
