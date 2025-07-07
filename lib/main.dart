@@ -58,7 +58,7 @@ void main() {
           // 在加载过程中显示一个进度条
           return const MaterialApp(home: Center(child: CircularProgressIndicator()));
         }
-        // 获取数据更新 账户信息
+        // 获取数据更新账户信息
         accountModel.updateFromRawJson(snapshot.data[0]);
         // 获取是否是调试模式
         isDebugMode ??= snapshot.data[1];
