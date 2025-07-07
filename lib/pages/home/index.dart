@@ -18,7 +18,6 @@ class HomeControllerState extends BaseRefreshControllerState with WidgetsBinding
     network.addPersistentListener(_handleNetworkChange);
     // 添加一次性监听，网络连接成功时，会调用此方法
     network.addOneTimeListener(({required results, required isConnected}) {
-      log('network.addOneTimeListener: $isConnected');
       if (isConnected) {
         // 操作当前页面的网络数据
       }
