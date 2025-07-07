@@ -108,6 +108,8 @@
 
   #【正式】
   $ flutter build apk --release
+  # Flutter 在编译 release 包时，默认启用了 icon tree-shaking（图标摇树优化），帮助减小包体积，从而会导致部分设备图片出现问题，可以使用这个命令禁止使用并打包
+  $ flutter build apk --release --no-tree-shake-icons
   
   #【正式】使用 appbundle（适用于发布到 Google Play，内购测试只支持这个）
   $ flutter build appbundle --release
