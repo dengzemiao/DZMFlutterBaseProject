@@ -26,14 +26,14 @@ class _TabbarControllerState extends State<TabbarController> {
   /// Items
   final List<Map<String, String>> _items = [
     {
-      'icon': 'assets/images/tabbar_normal_1.png',
-      'activeIcon': 'assets/images/tabbar_select_1.png',
-      'label': '案例'
-    },
-    {
       'icon': 'assets/images/tabbar_normal_0.png',
       'activeIcon': 'assets/images/tabbar_select_0.png',
       'label': '首页'
+    },
+    {
+      'icon': 'assets/images/tabbar_normal_1.png',
+      'activeIcon': 'assets/images/tabbar_select_1.png',
+      'label': '案例'
     },
     {
       'icon': 'assets/images/tabbar_normal_2.png',
@@ -48,8 +48,8 @@ class _TabbarControllerState extends State<TabbarController> {
     // 初始化
     _pages = [
       // const UserInfoController(title: ''), // 用于写静态页面或对接接口快捷调试
-      const CaseController(),
       const HomeController(),
+      const CaseController(),
       UserController(key: _userKey, title: '我的'),
     ];
   }
