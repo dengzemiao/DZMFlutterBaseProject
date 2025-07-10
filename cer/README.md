@@ -47,6 +47,8 @@
     5、查看 `.keystore` 签名信息
 
     ```sh
+    $ keytool -list -v -keystore dengzemiao.keystore -alias dengzemiao
+
     $ keytool -list -v -keystore dengzemiao.keystore -alias dengzemiao -keypass dengzemiao123456 -storepass dengzemiao123456 
     ```
 
