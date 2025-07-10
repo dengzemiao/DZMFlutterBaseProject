@@ -6,6 +6,8 @@
 
 * [AppIcon 与 启动图快捷配置指令](https://blog.csdn.net/zz00008888/article/details/145592305)
 
+* [Flutter fvm 多版本管理安装与常用指令](https://blog.csdn.net/zz00008888/article/details/148895927)
+
 ## 二、初始化项目环境：
 
 * `$ flutter --version`
@@ -91,8 +93,8 @@
   1. 运行以下命令，清理并重新构建项目：
 
     ```sh
-    $ flutter clean
-    $ flutter run
+    $ fvm flutter clean
+    $ fvm flutter run
     ```
 
 ## 三、打包指令
@@ -101,32 +103,32 @@
 
   ```sh
   #【测试】
-  $ flutter build apk --debug
+  $ fvm flutter build apk --debug
 
   #【测试】使用 appbundle（适用于发布到 Google Play，内购测试不支持这个）
-  $ flutter build appbundle --debug
+  $ fvm flutter build appbundle --debug
 
   #【正式】
-  $ flutter build apk --release
+  $ fvm flutter build apk --release
   # Flutter 在编译 release 包时，默认启用了 icon tree-shaking（图标摇树优化），帮助减小包体积，特殊情况下，如果不需要可以使用这个命令禁止使用并打包
-  $ flutter build apk --release --no-tree-shake-icons
+  $ fvm flutter build apk --release --no-tree-shake-icons
   
   #【正式】使用 appbundle（适用于发布到 Google Play，内购测试只支持这个）
-  $ flutter build appbundle --release
+  $ fvm flutter build appbundle --release
   ```
 
 * `iOS`
 
   ```sh
   #【测试】
-  $ flutter build ios --debug
+  $ fvm flutter build ios --debug
   # 或
-  $ flutter build ipa --debug
+  $ fvm flutter build ipa --debug
 
   #【正式】
-  $ flutter build ios --release
+  $ fvm flutter build ios --release
   # 或
-  $ flutter build ipa --release
+  $ fvm flutter build ipa --release
 
   # 推荐通过 Xcode 打包生成
   ```

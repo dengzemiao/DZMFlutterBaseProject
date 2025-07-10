@@ -7,8 +7,8 @@ RESET="\033[0m"
 echo "${GREEN_BG}============================== 开始 Flutter + iOS + Android 全缓存清理与依赖更新流程...${RESET}"
 
 # Flutter 清理旧构建缓存
-flutter clean
-echo "${GREEN_BG}============================== Flutter clean 完成${RESET}"
+fvm flutter clean
+echo "${GREEN_BG}============================== fvm flutter clean 完成${RESET}"
 
 # Flutter pub 缓存修复（可选，日常清理可不执行，耗时较长）
 # flutter pub cache repair
@@ -31,8 +31,8 @@ cd ..
 echo "${GREEN_BG}============================== Android 构建缓存清理完成${RESET}"
 
 # Flutter 重新获取 Dart 依赖
-flutter pub get
-echo "${GREEN_BG}============================== Flutter pub get 完成${RESET}"
+fvm flutter pub get
+echo "${GREEN_BG}============================== fvm flutter pub get 完成${RESET}"
 
 # iOS 重新安装 CocoaPods 依赖
 cd ios
