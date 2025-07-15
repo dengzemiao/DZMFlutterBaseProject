@@ -6,7 +6,7 @@ class CaseModel {
 
   /// 构造函数
   CaseModel({
-    required this.id,
+    this.id,
   });
 
   /// 拷贝
@@ -17,24 +17,19 @@ class CaseModel {
       id: id ?? this.id,
     );
 
+  /// 从原始 JSON 转换
+  factory CaseModel.fromRawJson(String str) => CaseModel.fromJson(json.decode(str));
+
   /// 转换为 JSON
-  factory CaseModel.fromJson(Map<String, dynamic> json) {
-    final model = CaseModel(
-      id: json["id"],
-    );
-    return model;
-  }
+  factory CaseModel.fromJson(Map<String, dynamic> json) => CaseModel()..updateFromJson(json);
+  
+  /// 转换为原始 JSON
+  String toRawJson() => json.encode(toJson());
 
   /// 转换为 JSON
   Map<String, dynamic> toJson() => {
     "id": id,
   };
-
-  /// 从原始 JSON 转换
-  factory CaseModel.fromRawJson(String str) => CaseModel.fromJson(json.decode(str));
-
-  /// 转换为原始 JSON
-  String toRawJson() => json.encode(toJson());
 
   /// 更新数据
   /// [force] 是否强制覆盖（即使为null也覆盖），默认为false，仅当 json 中有对应 key 时才覆盖
