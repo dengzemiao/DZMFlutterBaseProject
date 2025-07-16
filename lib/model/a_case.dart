@@ -3,18 +3,22 @@ import 'dart:convert';
 class CaseModel {
   /// ID
   int? id;
+  List<Map<String, dynamic>>? list;
 
   /// 构造函数
   CaseModel({
     this.id,
+    this.list,
   });
 
   /// 拷贝
   CaseModel copyWith({
     int? id,
+    List<Map<String, dynamic>>? list,
   }) => 
     CaseModel(
       id: id ?? this.id,
+      list: list ?? this.list,
     );
 
   /// 从原始 JSON 转换
@@ -29,6 +33,7 @@ class CaseModel {
   /// 转换为 JSON
   Map<String, dynamic> toJson() => {
     "id": id,
+    "list": list,
   };
 
   /// 更新数据
@@ -36,6 +41,11 @@ class CaseModel {
   void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
     if (json.isNotEmpty || force) {
       id = force || json.containsKey('id') ? json['id'] : id;
+      list = force || json.containsKey('list')
+        ? (json['list'] != null
+            ? List<Map<String, dynamic>>.from(json['list'].map((x) => x))
+            : [])
+        : list;
     }
   }
 
