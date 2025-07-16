@@ -41,11 +41,8 @@ class CaseModel {
   void updateFromJson(Map<String, dynamic> json, {bool force = false}) {
     if (json.isNotEmpty || force) {
       id = force || json.containsKey('id') ? json['id'] : id;
-      list = force || json.containsKey('list')
-        ? (json['list'] != null
-            ? List<Map<String, dynamic>>.from(json['list'].map((x) => x))
-            : [])
-        : list;
+      final listData = json['list'] ?? [];
+      list = force || json.containsKey('list') ? List<Map<String, dynamic>>.from(listData.map((x) => x)) : list;
     }
   }
 
