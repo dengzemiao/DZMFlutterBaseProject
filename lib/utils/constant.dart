@@ -24,4 +24,8 @@ enum PublicKey {
   /// value
   final String value;
   const PublicKey({ required this.value });
+  /// 根据 value 获取对应的 PublicKey
+  static PublicKey? fromValue(String value) {
+    return PublicKey.values.where((e) => e.value == value).firstOrNull;
+  }
 }
