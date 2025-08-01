@@ -3,6 +3,7 @@ import 'dart:convert';
 class CaseModel {
   /// ID
   int? id;
+  /// 列表
   List<Map<String, dynamic>>? list;
 
   /// 构造函数
