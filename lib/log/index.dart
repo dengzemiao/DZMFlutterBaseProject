@@ -384,6 +384,10 @@ class LogControllerState extends BaseScrollControllerState {
             childCount: logs.logs.length,
           ),
         ),
+        // 底部加个间距
+        SliverToBoxAdapter(
+          child: SizedBox(height: adaptSize(50)),
+        ),
       ]
     );
   }
