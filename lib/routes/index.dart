@@ -20,8 +20,6 @@ class AppRoutes {
   String get logvc => '/log';
   Widget get logPage => const LogController();
 
-  /// 入口页
-  String get initialRoute => tabbar;
   /// 底部导航
   String get tabbar => '/pages/tabbar';
   Widget get tabbarPage => const TabbarController();
@@ -30,6 +28,9 @@ class AppRoutes {
   Widget get webViewPage => const WebviewController();
   /// 未知
   String get notFound => '/pages/not_found';
+  /// 入口页
+  String get initialRoute => tabbar;
+  Widget get initialRoutePage => tabbarPage;
 
 
   /// 路由列表

@@ -67,13 +67,13 @@ void main() {
         // // 是否有 token
         // if (accountModel.accessToken != null && accountModel.accessToken!.isNotEmpty) {
         //   // 有 token 跳转到 tabbar 页面
-        //   return MyApp(initialRoute: appRoutes.tabbar);
+        //   return MyApp(initialRoute: appRoutes.tabbar, initialRoutePage: appRoutes.tabbarPage);
         // } else {
         //   // 没有 token 跳转到 login 页面
-        //   return MyApp(initialRoute: appRoutes.login);
+        //   return MyApp(initialRoute: appRoutes.login, initialRoutePage: appRoutes.logPage);
         // }
         // 审核要求，必须要用户能看到内容
-        return MyApp(initialRoute: appRoutes.tabbar);
+        return MyApp(initialRoute: appRoutes.tabbar, initialRoutePage: appRoutes.initialRoutePage);
       },
     )
   );
@@ -82,11 +82,13 @@ void main() {
 class MyApp extends StatefulWidget {
 
   /// 默认路由
-  final String? initialRoute;
+  final String initialRoute;
+  final Widget initialRoutePage;
 
   const MyApp({
     super.key,
-    this.initialRoute
+    required this.initialRoute,
+    required this.initialRoutePage,
   });
 
   @override
@@ -298,8 +300,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: hud.init(),
       // initialBinding: InitBinding(),
       // 初始路由会被 InitBinding 覆盖
-      initialRoute: widget.initialRoute ?? appRoutes.initialRoute,
+      initialRoute: widget.initialRoute,
       getPages: appRoutes.getPages,
+      unknownRoute: GetPage(name: appRoutes.initialRoute, page: () => widget.initialRoutePage),
     );
   }
 }
