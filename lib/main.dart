@@ -256,9 +256,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return buildMaterialApp(context);
   }
 
-/// MaterialApp
-Widget buildMaterialApp(BuildContext context) {
-  return GetMaterialApp(
+  /// MaterialApp
+  Widget buildMaterialApp(BuildContext context) {
+    return GetMaterialApp(
       title: '水哥自用框架',
       // 路由观察者，目前 PublicNavigatorObserver() 的功能已经可以放到 routeObserver 回调中去实现了。
       // navigatorObservers: [PublicNavigatorObserver(), routeObserver],
