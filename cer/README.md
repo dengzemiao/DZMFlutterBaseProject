@@ -19,48 +19,96 @@
 
   * 提取证书信息
 
+    0、查看 `.keystore` 签名信息
+
+    ```sh
+    $ keytool -list -v -keystore dengzemiao.keystore -alias dengzemiao -keypass dengzemiao123456 -storepass dengzemiao123456 
+    ```
+
     1、生成公钥文件
 
     ```sh
-    $ keytool -export -alias dengzemiao -keystore dengzemiao.keystore -storepass dengzemiao123456 -file public_key.pem
+    # 官方推荐使用 -exportcert 要求 Java 1.4+ ； -export 更老 所有版本
+
+    # .keystore 转 .pem
+    $ keytool -exportcert -alias dengzemiao -keystore dengzemiao.keystore -storepass dengzemiao123456 -file public_key.pem
+
+    # .keystore 转 .cer
+    $ keytool -exportcert -alias dengzemiao -keystore dengzemiao.keystore -storepass dengzemiao123456 -file public_key.cer
     ```
 
-    2、提取公钥信息
+    2、证书文件类型转换
+
+    ```sh
+    # .pem 转 .cer
+    $ openssl x509 -in public_key.pem -outform der -out public_key.cer
+
+    # .cer 转 .pem
+    openssl x509 -in public_key.cer -inform der -out public_key.pem
+    ```
+
+    3、提取公钥信息
 
     ```sh
     $ openssl x509 -in public_key.pem -text -noout
     ```
 
-    3、提取公钥模数
+    4、提取公钥模数
 
     ```sh
     $ openssl x509 -in public_key.pem -noout -modulus
     ```
 
-    3、提取 `MD5`
+    5、提取 `MD5`
 
     ```sh
+    # .pem 提取 md5
     $ openssl x509 -in public_key.pem -noout -fingerprint -md5
-
     # 去掉冒号
     $ openssl x509 -in public_key.pem -noout -fingerprint -md5 | tr -d ':'
+
+    # .cer 提取 md5
+    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -md5
+    # 去掉冒号
+    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -md5 | tr -d ':'
     ```
 
-    4、提取 `SHA1`
+    6、提取 `SHA1`
 
     ```sh
-    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha1
+    # .keystore 提取 SHA1
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA1:"
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA1:" | awk -F': ' '{print $2}'
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA1:" | awk -F': ' '{print $2}' | tr -d ':'
 
+    # .pem 提取 SHA1
+    $ openssl x509 -in public_key.pem -noout -fingerprint -sha1
+    # 去掉冒号
+    $ openssl x509 -in public_key.pem -noout -fingerprint -sha1 | tr -d ':'
+
+    # .cer 提取 SHA1
+    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha1
     # 去掉冒号
     $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha1 | tr -d ':'
     ```
 
-    5、查看 `.keystore` 签名信息
+    7、提取 `SHA256`
 
     ```sh
-    $ keytool -list -v -keystore dengzemiao.keystore -alias dengzemiao
+    # .keystore 提取 SHA1
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA256:"
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA256:" | awk -F': ' '{print $2}'
+    $ keytool -list -v -keystore dengzemiao.keystore -storepass dengzemiao123456 | grep "SHA256:" | awk -F': ' '{print $2}' | tr -d ':'
 
-    $ keytool -list -v -keystore dengzemiao.keystore -alias dengzemiao -keypass dengzemiao123456 -storepass dengzemiao123456 
+    # .pem 提取 SHA256
+    $ openssl x509 -in public_key.pem -noout -fingerprint -sha256
+    # 去掉冒号
+    $ openssl x509 -in public_key.pem -noout -fingerprint -sha256 | tr -d ':'
+
+    # .cer 提取 SHA256
+    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha256
+    # 去掉冒号
+    $ openssl x509 -in public_key.cer -inform der -noout -fingerprint -sha256 | tr -d ':'
     ```
 
   * 提取 `aab/apk` 证书信息
