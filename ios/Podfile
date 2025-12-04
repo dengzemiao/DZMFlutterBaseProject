@@ -1,6 +1,6 @@
-# CocoaPods CDN 源（推荐）
+# CocoaPods CDN 源（新仓库 - 推荐）
 source 'https://cdn.cocoapods.org/'
-# # 备用源
+# # 备用源（老仓库）
 # source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment this line to define a global platform for your project
