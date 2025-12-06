@@ -17,7 +17,7 @@
     $ keytool -genkeypair -alias dengzemiao -keyalg RSA -keypass dengzemiao123456 -validity 10000 -keystore ./dengzemiao.keystore -storepass dengzemiao123456
 
     # .keystore 转 .p12
-    $ keytool -importkeystore -srckeystore aixuetang.keystore -srcalias aixuetang -srcstoretype JKS -srcstorepass aixuetang123456 -destkeystore aixuetang.p12 -deststoretype PKCS12 -deststorepass aixuetang123456
+    $ keytool -importkeystore -srckeystore dengzemiao.keystore -srcalias dengzemiao -srcstoretype JKS -srcstorepass dengzemiao123456 -destkeystore dengzemiao.p12 -deststoretype PKCS12 -deststorepass dengzemiao123456
     ```
 
   * 提取证书信息
