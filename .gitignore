@@ -1,43 +1,64 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+generated_plugin_registrant.dart
 
 # IntelliJ related
 *.iml
+.idea/
 *.ipr
 *.iws
-.idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VSCode
+.vscode/*
 
-# Flutter/Dart/Pub related
-**/doc/api/
+# Xcode / iOS
+**/ios/Flutter/flutter_export_environment.sh
 **/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+**/ios/Podfile.lock
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/Runner/GeneratedPluginRegistrant.*
 
-# Symbolication related
-app.*.symbols
+# Android
+**/android/.gradle/
+**/android/local.properties
+**/android/**/gradle-wrapper.jar
+**/android/captures/
+**/android/GeneratedPluginRegistrant.java
+**/android/key.properties
+**/android/app/google-services.json
+**/android/app/google-services.plist
 
-# Obfuscation related
-app.*.map.json
+# macOS
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Pods/
+**/macos/Podfile.lock
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Web
+**/web/.dart_tool/
+
+# Windows
+**/windows/flutter/generated_plugin_registrant.*
+**/windows/flutter/generated_plugins.cpp
+
+# Linux
+**/linux/flutter/generated_plugin_registrant.*
+**/linux/flutter/generated_plugins.*
+
+# Firebase
+*.firebase/
+firebase.json
+firebase-debug.log
+
+# ENV/config
+*.env
+*.env.*
