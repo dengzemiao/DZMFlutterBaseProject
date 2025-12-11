@@ -37,6 +37,7 @@ generated_plugin_registrant.dart
 **/android/app/google-services.plist
 
 # macOS
+.DS_Store
 **/macos/Flutter/Flutter-Debug.xcconfig
 **/macos/Flutter/Flutter-Release.xcconfig
 **/macos/Flutter/GeneratedPluginRegistrant.swift
