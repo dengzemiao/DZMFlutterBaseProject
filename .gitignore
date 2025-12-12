@@ -63,3 +63,6 @@ firebase-debug.log
 # ENV/config
 *.env
 *.env.*
+
+# FVM Version Cache
+.fvm/
